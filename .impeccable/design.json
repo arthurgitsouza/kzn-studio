@@ -1,0 +1,140 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-01T00:00:00Z",
+  "title": "Design System: KZN Marketing Studio",
+  "extensions": {
+    "colorMeta": {
+      "red": { "role": "primary", "displayName": "Signal Red", "canonical": "#e4111d", "tonalRamp": ["#3d0408", "#610710", "#850a14", "#a90c17", "#c40d18", "#e4111d", "#f2606a", "#fbc4c7"] },
+      "red-deep": { "role": "primary", "displayName": "Pressed Red", "canonical": "#c40d18", "tonalRamp": ["#3d0408", "#610710", "#850a14", "#a90c17", "#c40d18", "#e4111d", "#f2606a", "#fbc4c7"] },
+      "black": { "role": "neutral", "displayName": "Ink Black", "canonical": "#08080a", "tonalRamp": ["#08080a", "#101013", "#18181c", "#2a2a30", "#4a4a52", "#76767f", "#a9a9b4", "#d3d3da"] },
+      "white": { "role": "neutral", "displayName": "White", "canonical": "#ffffff", "tonalRamp": ["#5a5a66", "#76767f", "#a9a9b4", "#c9c9d0", "#e3e3e7", "#f5f5f6", "#fafafa", "#ffffff"] },
+      "gray": { "role": "neutral", "displayName": "Mist Grey", "canonical": "#f5f5f6", "tonalRamp": ["#5a5a66", "#76767f", "#a9a9b4", "#c9c9d0", "#e1e1e5", "#ececee", "#f5f5f6", "#fafafa"] }
+    },
+    "typographyMeta": {
+      "hero": { "displayName": "Hero", "purpose": "The single page title, 700, centered." },
+      "headline": { "displayName": "Headline", "purpose": "Section titles, 600, tight tracking." },
+      "title": { "displayName": "Title", "purpose": "Card titles." },
+      "lead": { "displayName": "Lead", "purpose": "Subtitles and intros, muted." },
+      "body": { "displayName": "Body", "purpose": "Running text, 400." },
+      "label": { "displayName": "Label", "purpose": "Nav, fields, buttons." }
+    },
+    "shadows": [
+      { "name": "nav-scrolled", "value": "0 18px 30px -18px rgba(0,0,0,0.75)", "purpose": "Nav pill once scrolled." },
+      { "name": "dropdown", "value": "0 30px 50px -24px rgba(0,0,0,0.9)", "purpose": "Open nav menus." },
+      { "name": "feature-hover", "value": "0 14px 22px -16px rgba(16,16,20,0.3)", "purpose": "Light feature cards on hover." },
+      { "name": "focus-ring", "value": "0 0 0 4px rgba(228,17,29,0.14)", "purpose": "Input focus." }
+    ],
+    "motion": [
+      { "name": "ease", "value": "cubic-bezier(0.22, 0.61, 0.36, 1)", "purpose": "Color and border transitions." },
+      { "name": "ease-out", "value": "cubic-bezier(0.16, 1, 0.3, 1)", "purpose": "Lifts, rotations, reveals." },
+      { "name": "ease-in-out", "value": "cubic-bezier(0.76, 0, 0.24, 1)", "purpose": "Preloader." },
+      { "name": "band", "value": "38s linear infinite", "purpose": "Red marquee band." }
+    ],
+    "breakpoints": [
+      { "name": "xs", "value": "560px" },
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "nav", "value": "1100px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1700px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Red pill with circular white arrow chip that rotates on hover.",
+      "html": "<a class=\"ds-btn\" href=\"#\">Quero estruturar meu marketing <span class=\"ds-btn__arrow\"><svg viewBox=\"0 0 256 256\" width=\"19\" height=\"19\" fill=\"currentColor\"><path d=\"M221.66 133.66l-72 72a8 8 0 0 1-11.32-11.32L196.69 136H40a8 8 0 0 1 0-16h156.69l-58.35-58.34a8 8 0 0 1 11.32-11.32l72 72a8 8 0 0 1 0 11.32z\"/></svg></span></a>",
+      "css": ".ds-btn{display:inline-flex;align-items:center;gap:1rem;min-height:58px;padding:0 .5rem 0 1.9rem;border-radius:999px;background:#e4111d;color:#fff;font:600 1rem/1.2 Poppins,system-ui,sans-serif;text-decoration:none;transition:transform .45s cubic-bezier(.16,1,.3,1),background .3s} .ds-btn__arrow{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#fff;color:#e4111d;transition:transform .55s cubic-bezier(.16,1,.3,1)} .ds-btn:hover{background:#c40d18;transform:translateY(-2px)} .ds-btn:hover .ds-btn__arrow{transform:rotate(-45deg)} .ds-btn:focus-visible{outline:2px solid #ff4651;outline-offset:3px}"
+    },
+    {
+      "name": "Outline Button",
+      "kind": "button",
+      "refersTo": "button-outline",
+      "description": "Secondary pill with a 1.5px border and foreground-filled chip.",
+      "html": "<a class=\"ds-btn-o\" href=\"#\">Ver como trabalhamos</a>",
+      "css": ".ds-btn-o{display:inline-flex;align-items:center;min-height:58px;padding:0 1.9rem;border-radius:999px;border:1.5px solid rgba(255,255,255,.28);color:#fff;background:#08080a;font:600 1rem/1.2 Poppins,system-ui,sans-serif;text-decoration:none;transition:border-color .3s,transform .45s} .ds-btn-o:hover{border-color:#fff;transform:translateY(-2px)} .ds-btn-o:focus-visible{outline:2px solid #ff4651;outline-offset:3px}"
+    },
+    {
+      "name": "Service Card",
+      "kind": "card",
+      "refersTo": "card-service",
+      "description": "24px dark card with icon tile and circular arrow; border and tile turn red on hover.",
+      "html": "<article class=\"ds-svc\"><div class=\"ds-svc__top\"><span class=\"ds-svc__icon\"></span><span class=\"ds-svc__arrow\"></span></div><h3>Estrategia</h3><p>Plano e metas antes da midia.</p></article>",
+      "css": ".ds-svc{display:flex;flex-direction:column;justify-content:space-between;gap:3.4rem;min-height:330px;padding:26px;border-radius:24px;background:#18181c;border:1px solid rgba(255,255,255,.12);color:#fff;font-family:Poppins,system-ui,sans-serif;transition:transform .5s cubic-bezier(.16,1,.3,1),border-color .3s} .ds-svc__top{display:flex;justify-content:space-between} .ds-svc__icon{width:54px;height:54px;border-radius:16px;background:#fff} .ds-svc__arrow{width:42px;height:42px;border-radius:50%;border:1.5px solid rgba(255,255,255,.22);transition:transform .55s cubic-bezier(.16,1,.3,1),background .3s} .ds-svc h3{margin:0 0 .5rem;font:600 1.4rem/1.2 Poppins;letter-spacing:-.02em} .ds-svc p{margin:0;color:#a9a9b4} .ds-svc:hover{transform:translateY(-5px);border-color:#e4111d} .ds-svc:hover .ds-svc__arrow{transform:rotate(45deg);background:#e4111d;border-color:#e4111d}"
+    },
+    {
+      "name": "Text Field",
+      "kind": "input",
+      "refersTo": "field-input",
+      "description": "56px field with 14px radius and red focus ring.",
+      "html": "<label class=\"ds-field\">Nome<input type=\"text\" placeholder=\"Seu nome\"></label>",
+      "css": ".ds-field{display:grid;gap:.5rem;font:500 .88rem/1.4 Poppins,system-ui,sans-serif;color:#101014} .ds-field input{min-height:56px;padding:0 1.1rem;border-radius:14px;border:1.5px solid #d3d3da;background:#fff;font:400 1rem Poppins,system-ui,sans-serif;color:#101014;transition:border-color .3s,box-shadow .3s} .ds-field input:hover{border-color:#a7a7b0} .ds-field input:focus{outline:none;border-color:#e4111d;box-shadow:0 0 0 4px rgba(228,17,29,.14)}"
+    },
+    {
+      "name": "Option Chip",
+      "kind": "chip",
+      "refersTo": "chip-option",
+      "description": "Pill choice; selected fills red.",
+      "html": "<span class=\"ds-chip\">Trafego pago</span> <span class=\"ds-chip ds-chip--on\">Site</span>",
+      "css": ".ds-chip{display:inline-flex;align-items:center;min-height:46px;padding:.55rem 1.1rem;border-radius:999px;border:1.5px solid #d3d3da;font:500 .9rem/1.2 Poppins,system-ui,sans-serif;color:#101014;background:#fff;transition:background .3s,border-color .3s,color .3s} .ds-chip:hover{border-color:#101014} .ds-chip--on{background:#e4111d;border-color:#e4111d;color:#fff}"
+    },
+    {
+      "name": "Nav Bar",
+      "kind": "nav",
+      "refersTo": "nav-bar",
+      "description": "Floating pill bar with pill links and a small red CTA.",
+      "html": "<nav class=\"ds-nav\"><b>KZN</b><a class=\"ds-nav__l\" href=\"#\">Servicos</a><a class=\"ds-nav__l\" href=\"#\">Metodo</a><a class=\"ds-nav__cta\" href=\"#\">Ver como trabalhamos</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;gap:1rem;min-height:66px;padding:9px 9px 9px 26px;border-radius:999px;background:#101013;border:1px solid rgba(255,255,255,.1);color:#fff;font-family:Poppins,system-ui,sans-serif} .ds-nav__l{display:inline-flex;align-items:center;min-height:44px;padding:0 .85rem;border-radius:999px;font:500 .92rem/1 Poppins;color:#fff;text-decoration:none;transition:background .3s} .ds-nav__l:hover{background:rgba(255,255,255,.09)} .ds-nav__cta{margin-left:auto;display:inline-flex;align-items:center;min-height:48px;padding:0 1.4rem;border-radius:999px;background:#e4111d;color:#fff;font:600 .92rem/1 Poppins;text-decoration:none} .ds-nav__cta:hover{background:#c40d18}"
+    },
+    {
+      "name": "Red Marquee Band",
+      "kind": "custom",
+      "refersTo": "band",
+      "description": "Solid red strip with uppercase tagline and white rules.",
+      "html": "<div class=\"ds-band\"><span>Marketing que gera resultado</span><i></i><span>Marketing que gera resultado</span></div>",
+      "css": ".ds-band{display:flex;align-items:center;gap:2rem;padding:1.3rem 2rem;background:#e4111d;color:#fff;overflow:hidden} .ds-band span{font:600 1.25rem/1 Poppins,system-ui,sans-serif;letter-spacing:.04em;text-transform:uppercase;white-space:nowrap} .ds-band i{width:34px;height:2px;background:rgba(255,255,255,.55)}"
+    },
+    {
+      "name": "Case Panel",
+      "kind": "card",
+      "refersTo": "panel-case",
+      "description": "32px solid red panel with metrics ruled by white hairlines.",
+      "html": "<section class=\"ds-case\"><h3>Case KZN</h3><div class=\"ds-metric\"><small>Leads</small><b>+120%</b></div></section>",
+      "css": ".ds-case{display:grid;gap:2rem;padding:2.5rem;border-radius:32px;background:#e4111d;color:#fff;font-family:Poppins,system-ui,sans-serif} .ds-case h3{margin:0;font:600 2rem/1.1 Poppins;letter-spacing:-.03em} .ds-metric{display:grid;gap:.4rem;padding-top:1.1rem;border-top:1px solid rgba(255,255,255,.45)} .ds-metric b{font:600 2.6rem/1.05 Poppins;letter-spacing:-.035em;font-variant-numeric:tabular-nums}"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Clean Ledger",
+    "overview": "A single-page agency site where typography and one red do all the work. Sections are flat, solid fields that alternate black, white and light grey; the page turns from one to the next like pages, with no texture, gradient, glass or blurred glow. Poppins is the only family. Red is spent sparingly: the primary button, one highlighted word per heading, the single moving band, the case panel and small icon accents.",
+    "keyCharacteristics": [
+      "Per-section theme (dark, light, gray) set by a class that swaps foreground, muted, line, card, accent and field variables.",
+      "One red, with two text variants tuned for contrast per background.",
+      "Pill buttons with a circular arrow chip; 24px cards; 14px fields; pill nav bar.",
+      "Solid fills only; the only shadows are short-offset, short-blur and neutral.",
+      "Phosphor regular icons, filled with currentColor."
+    ],
+    "rules": [
+      { "name": "The One Red Rule", "body": "Red is the only chroma. It marks action, one emphasis word, the band and the case panel; never decorative fills, never a second accent.", "section": "colors" },
+      { "name": "The Theme Class Rule", "body": "A section picks on-dark, on-light or on-gray and reads colors from variables; do not hard-code foreground or card colors inside a section.", "section": "colors" },
+      { "name": "The Weight Not Face Rule", "body": "Hierarchy comes from weight (400, 500, 600, 700) and size; never add a second family.", "section": "typography" },
+      { "name": "The Tight Heading Rule", "body": "Display and headline sizes carry negative tracking (-0.02em to -0.035em); body never does.", "section": "typography" },
+      { "name": "The Solid Surface Rule", "body": "No gradient fills, blur, glass or texture. The only gradient in the CSS is a scrim over an optional service photo.", "section": "elevation" }
+    ],
+    "dos": [
+      "Do alternate section themes with on-dark, on-light and on-gray and let variables supply colors.",
+      "Do use Signal Red only for action, one emphasis word, the band and the case panel, and the contrast-tuned text reds for text.",
+      "Do make every primary action a pill with the circular arrow chip that rotates on hover.",
+      "Do keep radii to the set: pill, 24px cards, 14px fields.",
+      "Do animate transform and opacity only, and keep a no-JS and reduced-motion fallback."
+    ],
+    "donts": [
+      "Don't add gradients, grain, glass, blur or colored glow; the earlier glass-red, noir-lines and photo-table directions were rejected and are not part of this system.",
+      "Don't introduce a second typeface or a second accent color.",
+      "Don't use #e4111d for small text; use the on-dark or on-light text reds.",
+      "Don't use Japanese characters anywhere in the KZN site.",
+      "Don't let a card or button show a shadow at rest."
+    ]
+  }
+}

@@ -1,0 +1,577 @@
+/* ─────────────────────────────────────────────────────────────
+   CAMADA 2: componentes (movimento, títulos, botões, menu, faixa, preloader)
+   ───────────────────────────────────────────────────────────── */
+@layer components {
+  /* ═══ Estados de movimento (com rede de segurança em CSS) ═══ */
+  .motion [data-reveal],
+  .motion [data-reveal-group] > * {
+    opacity: 0;
+    transform: translate3d(0, 24px, 0);
+  }
+  .motion [data-reveal].is-in,
+  .motion [data-reveal-group] > .is-in {
+    opacity: 1;
+    transform: none;
+  }
+  .motion.failsafe [data-reveal],
+  .motion.failsafe [data-reveal-group] > * {
+    opacity: 1;
+    transform: none;
+    transition: opacity 0.5s;
+  }
+
+  /* Título por palavra com máscara */
+  .w {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    padding: 0.12em 0.06em 0.22em;
+    margin: -0.12em -0.06em -0.22em;
+  }
+  .wi {
+    display: inline-block;
+  }
+  .motion [data-split] .wi {
+    transform: translate3d(0, 120%, 0);
+  }
+  .motion [data-split].is-in .wi {
+    transform: none;
+    transition: transform 1s var(--ease-out) calc(var(--i, 0) * 32ms);
+  }
+  .motion.failsafe [data-split] .wi {
+    transform: none;
+  }
+
+  /* Texto que "acende" palavra por palavra com o scroll */
+  .motion [data-scrub] .sw {
+    opacity: 0.62; /* mínimo que mantém contraste AA antes de "acender" */
+  }
+  .motion.failsafe [data-scrub] .sw {
+    opacity: 1;
+  }
+
+  /* ═══ Títulos ═══ */
+  .h2 {
+    max-width: 17em;
+    font: 600 var(--fs-h2) / 1.08 var(--f);
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  .h2 em {
+    font-style: normal;
+    color: var(--accent);
+  }
+  .body {
+    max-width: 34rem;
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+  .lead {
+    max-width: 36rem;
+    font-size: var(--fs-lead);
+    line-height: 1.65;
+    color: var(--muted);
+    text-wrap: pretty;
+  }
+
+  /* Marca "Exemplo": só aparece quando config.showPlaceholders = true */
+  body:not(.show-ph) [data-pending] {
+    display: none !important;
+  }
+  .tag-ph {
+    display: none;
+    align-items: center;
+    padding: 0.34rem 0.65rem;
+    border-radius: 999px;
+    font: 600 0.66rem / 1 var(--f);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #fff;
+    background: var(--red);
+    pointer-events: none;
+  }
+  body.show-ph .tag-ph {
+    display: inline-flex;
+  }
+
+  /* ═══ Botões ═══
+     Pílula com chip circular de seta. No hover o botão sobe 2px, escurece e a seta gira para cima e à direita. */
+  .btn {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    min-height: 58px;
+    padding: 0 1.9rem;
+    border-radius: 999px;
+    font: 600 1rem / 1.2 var(--f);
+    text-align: center;
+    white-space: nowrap;
+    max-width: 100%;
+    transition: transform 0.45s var(--ease-out), background 0.3s var(--ease), border-color 0.3s var(--ease),
+      color 0.3s var(--ease), box-shadow 0.45s var(--ease-out);
+  }
+  .btn:has(.btn__arrow) {
+    padding-right: 0.5rem;
+  }
+  .btn__arrow {
+    display: grid;
+    place-items: center;
+    flex: none;
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    transition: transform 0.55s var(--ease-out), background 0.3s var(--ease), color 0.3s var(--ease);
+  }
+  .btn__arrow .icon {
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+  .btn:hover .btn__arrow {
+    transform: rotate(-45deg);
+  }
+  /* Botão magnético: o GSAP move o botão, então o CSS não anima a posição */
+  .btn[data-magnetic] {
+    transition: background 0.3s var(--ease), border-color 0.3s var(--ease), color 0.3s var(--ease), box-shadow 0.45s var(--ease-out);
+  }
+  .btn[data-magnetic]:hover {
+    transform: none;
+  }
+  .btn:hover .btn__arrow.btn__arrow--down {
+    transform: translateY(3px);
+  }
+  .btn:active {
+    transform: translateY(0) scale(0.985);
+  }
+
+  .btn--primary {
+    color: #fff;
+    background: var(--red);
+  }
+  .btn--primary .btn__arrow {
+    background: #fff;
+    color: var(--red);
+  }
+  .btn--primary:hover {
+    background: var(--red-deep);
+  }
+
+  .btn--dark {
+    color: #fff;
+    background: #101014;
+  }
+  .btn--dark .btn__arrow {
+    background: var(--red);
+    color: #fff;
+  }
+  .btn--dark:hover {
+    background: #000;
+  }
+
+  .btn--outline {
+    color: var(--fg);
+    border: 1.5px solid color-mix(in srgb, var(--fg) 28%, transparent);
+  }
+  .btn--outline .btn__arrow {
+    background: var(--fg);
+    color: var(--bg);
+  }
+  .btn--outline:hover {
+    border-color: var(--fg);
+  }
+
+  .btn--sm {
+    min-height: 48px;
+    padding: 0 1.4rem;
+    font-size: 0.92rem;
+  }
+  .btn--sm:has(.btn__arrow) {
+    padding-right: 0.35rem;
+    gap: 0.8rem;
+  }
+  .btn--sm .btn__arrow {
+    width: 36px;
+    height: 36px;
+  }
+  .btn--sm .btn__arrow .icon {
+    width: 1rem;
+    height: 1rem;
+  }
+  /* Link de texto com seta (ação secundária que não precisa de botão) */
+  .link-arrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7rem;
+    min-height: 48px;
+    font-weight: 600;
+    border-bottom: 2px solid var(--fg);
+    transition: color 0.3s var(--ease), border-color 0.3s var(--ease), gap 0.4s var(--ease-out);
+  }
+  .link-arrow .icon {
+    width: 1.2rem;
+    height: 1.2rem;
+    transition: transform 0.45s var(--ease-out);
+  }
+  .link-arrow:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+  .link-arrow:hover .icon {
+    transform: translateX(4px);
+  }
+  .btn--block {
+    width: 100%;
+  }
+  @media (max-width: 559px) {
+    .btn {
+      white-space: normal;
+      gap: 0.7rem;
+      padding-left: 1.4rem;
+      font-size: 0.96rem;
+    }
+    .btn--hero {
+      white-space: nowrap;
+      font-size: clamp(0.84rem, 3.9vw, 0.96rem);
+      padding-left: 1.2rem;
+    }
+  }
+
+  /* ═══ Barra de menu (pílula, sólida) ═══ */
+  .nav {
+    position: fixed;
+    top: 14px;
+    left: 0;
+    right: 0;
+    z-index: 60;
+    padding-inline: var(--gutter);
+    pointer-events: none;
+  }
+  .nav__bar {
+    position: relative;
+    z-index: 2;
+    pointer-events: auto;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    width: min(100%, var(--container));
+    min-height: 66px;
+    margin-inline: auto;
+    padding: 9px 9px 9px 26px;
+    border-radius: 999px;
+    background: var(--black-2);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    transition: border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+  }
+  .nav.is-scrolled .nav__bar {
+    border-color: rgba(255, 255, 255, 0.18);
+    box-shadow: 0 18px 30px -18px rgba(0, 0, 0, 0.75);
+  }
+
+  /* Logo: no desktop mostra KZN e abre completo ao passar o mouse */
+  .brand {
+    position: relative;
+    display: block;
+    flex: none;
+    height: 26px;
+  }
+  .brand__art {
+    position: relative;
+    display: block;
+    height: 100%;
+    aspect-ratio: 695 / 102;
+  }
+  .brand__art img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .brand__kzn {
+    clip-path: inset(0 49.7% 0 0);
+  }
+  /* Só "KZN" por padrão (celular e tablet). Abre completo apenas no desktop com mouse, no hover */
+  .brand__tag {
+    clip-path: inset(0 100% 0 50.3%);
+    opacity: 0;
+  }
+  @media (hover: hover) and (pointer: fine) and (min-width: 1100px) {
+    .brand__tag {
+      transition: clip-path 0.75s var(--ease-out), opacity 0.45s var(--ease);
+    }
+    .brand:hover .brand__tag,
+    .brand:focus-visible .brand__tag,
+    .brand.is-open .brand__tag {
+      clip-path: inset(0 0 0 50.3%);
+      opacity: 1;
+    }
+  }
+
+  .nav__links {
+    margin-left: clamp(0.4rem, 2vw, 2rem);
+  }
+  .nav__links > ul {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.1rem, 0.8vw, 0.8rem);
+  }
+  .nav__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    min-height: 44px;
+    padding: 0 0.85rem;
+    border-radius: 999px;
+    font: 500 0.92rem / 1 var(--f);
+    color: #fff;
+    white-space: nowrap;
+    transition: background 0.3s;
+  }
+  .nav__link:hover,
+  .nav__link[aria-expanded='true'] {
+    background: rgba(255, 255, 255, 0.09);
+  }
+  .nav__link[aria-current='true'] {
+    background: rgba(255, 255, 255, 0.09);
+  }
+  .nav__link .icon {
+    transition: transform 0.35s var(--ease);
+  }
+  .nav__link[aria-expanded='true'] .icon {
+    transform: rotate(180deg);
+  }
+
+  .has-menu {
+    position: relative;
+  }
+  .menu {
+    position: absolute;
+    top: calc(100% + 18px);
+    left: 0;
+    width: max-content;
+    min-width: 290px;
+    padding: 8px;
+    border-radius: 22px;
+    background: var(--black-2);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 30px 50px -24px rgba(0, 0, 0, 0.9);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(8px);
+    transition: opacity 0.3s var(--ease), transform 0.4s var(--ease-out), visibility 0s 0.4s;
+  }
+  .menu.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition-delay: 0s;
+  }
+  .menu__item {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.9rem;
+    padding: 0.8rem 0.95rem;
+    border-radius: 16px;
+    transition: background 0.25s;
+  }
+  .menu__item:hover {
+    background: rgba(255, 255, 255, 0.07);
+  }
+  .menu__item .icon {
+    margin-top: 2px;
+    width: 1.5rem;
+    height: 1.5rem;
+    color: #ff4651;
+  }
+  .menu__item strong {
+    display: block;
+    font: 500 0.92rem / 1.3 var(--f);
+  }
+  .menu__item small {
+    display: block;
+    margin-top: 2px;
+    font-size: 0.8rem;
+    line-height: 1.4;
+    color: #a9a9b4;
+  }
+  .menu--list {
+    min-width: 200px;
+  }
+
+  .nav__cta {
+    margin-left: auto;
+  }
+  .nav__toggle {
+    display: none;
+    place-items: center;
+    flex: none;
+    width: 46px;
+    height: 46px;
+    margin-left: auto;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.08);
+  }
+  .nav__toggle-bars {
+    position: relative;
+    width: 18px;
+    height: 10px;
+  }
+  .nav__toggle-bars i {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    border-radius: 2px;
+    background: #fff;
+    transition: transform 0.45s var(--ease-out);
+  }
+  .nav__toggle-bars i:first-child {
+    top: 0;
+  }
+  .nav__toggle-bars i:last-child {
+    top: 8px;
+  }
+  .nav__toggle[aria-expanded='true'] .nav__toggle-bars i:first-child {
+    transform: translateY(4px) rotate(45deg);
+  }
+  .nav__toggle[aria-expanded='true'] .nav__toggle-bars i:last-child {
+    transform: translateY(-4px) rotate(-45deg);
+  }
+
+  .sheet {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    padding: calc(104px + env(safe-area-inset-top, 0px)) var(--gutter) calc(28px + env(safe-area-inset-bottom, 0px));
+    overflow-y: auto;
+    background: var(--black);
+    pointer-events: auto;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-14px);
+    transition: opacity 0.4s var(--ease), transform 0.5s var(--ease-out), visibility 0s 0.5s;
+  }
+  .sheet.is-open {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition-delay: 0s;
+  }
+  .sheet__nav a {
+    display: flex;
+    align-items: center;
+    min-height: 62px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    font: 500 1.35rem / 1.2 var(--f);
+    letter-spacing: -0.02em;
+  }
+
+  @media (max-width: 1099px) {
+    .nav__links,
+    .nav__cta {
+      display: none;
+    }
+    .nav__toggle {
+      display: grid;
+    }
+    .nav__bar {
+      padding-left: 20px;
+    }
+  }
+  @media (min-width: 1100px) {
+    .sheet {
+      display: none;
+    }
+  }
+
+  /* ═══ Preloader ═══ */
+  .preloader {
+    display: none;
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    place-items: center;
+    background: var(--black);
+  }
+  .motion .preloader {
+    display: grid;
+    /* Rede de segurança: some sozinho mesmo sem JS */
+    animation: pl-failsafe 0.5s ease 4.6s forwards;
+  }
+  .preloader.is-done {
+    transform: translate3d(0, -100%, 0);
+    transition: transform 0.95s var(--ease-in-out);
+  }
+  .preloader__inner {
+    display: grid;
+    justify-items: center;
+    gap: 26px;
+  }
+  .preloader__logo {
+    position: relative;
+    display: block;
+    width: min(320px, 66vw);
+    aspect-ratio: 695 / 102;
+    transform: translate3d(24.85%, 0, 0);
+    animation: pl-shift 0.95s var(--ease-out) 0.45s forwards;
+  }
+  .preloader__logo img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+  }
+  .preloader__kzn {
+    clip-path: inset(0 49.7% 0 0);
+  }
+  .preloader__tag {
+    clip-path: inset(0 100% 0 50.3%);
+    animation: pl-open 0.95s var(--ease-out) 0.45s forwards;
+  }
+  .preloader__bar {
+    position: relative;
+    width: 140px;
+    height: 2px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.14);
+  }
+  .preloader__bar i {
+    position: absolute;
+    inset: 0;
+    background: var(--red);
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: pl-bar 1.35s var(--ease-in-out) forwards;
+  }
+  @keyframes pl-shift {
+    to {
+      transform: translate3d(0, 0, 0);
+    }
+  }
+  @keyframes pl-open {
+    to {
+      clip-path: inset(0 0 0 50.3%);
+    }
+  }
+  @keyframes pl-bar {
+    to {
+      transform: scaleX(1);
+    }
+  }
+  @keyframes pl-failsafe {
+    to {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+  }
+  html.is-loading {
+    overflow: hidden;
+  }
+}

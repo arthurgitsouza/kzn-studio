@@ -1,0 +1,4 @@
+{
+  "prompt": "Foto da capa enviada pelo cliente (origem: 10.webp, 1920x1080, equipe do KZN em volta da mesa de planejamento, com o degrade vermelho/preto dele). Tratada com ffmpeg nlmeans=s=3:p=5:r=11 + unsharp leve para remover o grao gravado no arquivo; redimensionada com Pillow. Sem geracao por IA.",
+  "createdAt": "2026-10-01T15:55:28.704Z"
+}

@@ -1,0 +1,222 @@
+/* ─────────────────────────────────────────────────────────────
+   KZN "Limpo": preto, branco e um vermelho. Tudo sólido.
+   Sem grão, sem vidro, sem brilho borrado. Única família: Poppins.
+   Camadas: tokens → reset → base → components → sections → utilities
+
+   Escala de z-index: 0 conteúdo · 60 menu · 100 preloader · 200 skip-link
+   Formas: botões, chips e barra do menu em pílula · cards 24px · campos 14px
+   ───────────────────────────────────────────────────────────── */
+@layer tokens, reset, base, components, sections, utilities;
+
+@layer tokens {
+  :root {
+    --black: #08080a;
+    --black-2: #101013;
+    --black-3: #18181c;
+    --white: #ffffff;
+    --gray: #f5f5f6;
+
+    --red: #e4111d;
+    --red-deep: #c40d18; /* hover do botão: o texto branco mantém contraste AA */
+
+    --f: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+    --fs-hero: clamp(2.2rem, 0.9rem + 3.1vw, 4.1rem);
+    --fs-h2: clamp(1.85rem, 1rem + 2.6vw, 3.35rem);
+    --fs-lead: clamp(1.02rem, 0.96rem + 0.3vw, 1.2rem);
+
+    --gutter: clamp(18px, 4.2vw, 56px);
+    --container: 1240px;
+    --section-y: clamp(76px, 10vw, 148px);
+
+    --r-card: 24px;
+    --r-field: 14px;
+
+    --ease: cubic-bezier(0.22, 0.61, 0.36, 1);
+    --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-in-out: cubic-bezier(0.76, 0, 0.24, 1);
+  }
+
+  /* Cada seção escolhe o seu tema; todo o resto lê estas variáveis */
+  .on-dark {
+    --bg: var(--black);
+    --fg: #ffffff;
+    --muted: #a9a9b4; /* 8:1 sobre o preto */
+    --line: rgba(255, 255, 255, 0.12);
+    --card: var(--black-3);
+    --accent: #ff4651; /* texto vermelho sobre preto, AA */
+    --field: #101013;
+  }
+  .on-light {
+    --bg: var(--white);
+    --fg: #101014;
+    --muted: #5a5a66; /* 6,9:1 sobre o branco */
+    --line: #e3e3e7;
+    --card: var(--gray);
+    --accent: #d4101b; /* texto vermelho sobre branco, AA */
+    --field: #ffffff;
+  }
+  .on-gray {
+    --bg: var(--gray);
+    --fg: #101014;
+    --muted: #5a5a66;
+    --line: #e1e1e5;
+    --card: var(--white);
+    --accent: #d4101b;
+    --field: #ffffff;
+  }
+
+  @media (min-width: 1700px) {
+    :root {
+      --container: 1360px;
+    }
+  }
+}
+
+@layer reset {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-padding-top: 100px;
+  }
+  body,
+  h1,
+  h2,
+  h3,
+  p,
+  ul,
+  ol,
+  figure,
+  blockquote {
+    margin: 0;
+  }
+  ul,
+  ol {
+    padding: 0;
+    list-style: none;
+  }
+  img,
+  svg {
+    display: block;
+    max-width: 100%;
+  }
+  img {
+    height: auto;
+  }
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+  button,
+  input {
+    font: inherit;
+    color: inherit;
+  }
+  button {
+    background: none;
+    border: 0;
+    padding: 0;
+    cursor: pointer;
+  }
+  fieldset {
+    border: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+  }
+  legend {
+    padding: 0;
+  }
+  [hidden] {
+    display: none !important;
+  }
+}
+
+@layer base {
+  html {
+    background: var(--black);
+    overflow-x: clip;
+    scrollbar-color: #4a4a52 var(--black);
+    scrollbar-width: thin;
+    accent-color: var(--red);
+    caret-color: var(--red);
+  }
+  body {
+    min-height: 100vh;
+    background: var(--black);
+    color: #fff;
+    font: 400 1rem / 1.7 var(--f);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+  ::selection {
+    background: var(--red);
+    color: #fff;
+  }
+  a {
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 1px;
+  }
+  :focus-visible {
+    outline: 2px solid var(--accent, #fff);
+    outline-offset: 3px;
+    border-radius: 6px;
+  }
+
+  .container {
+    width: min(var(--container), 100% - 2 * var(--gutter));
+    margin-inline: auto;
+  }
+
+  /* Ícones Phosphor (peso regular, preenchimento) */
+  .icon {
+    width: 1.25em;
+    height: 1.25em;
+    flex: none;
+    fill: currentColor;
+  }
+  .icon--xs {
+    width: 1em;
+    height: 1em;
+  }
+
+  .skip-link {
+    position: fixed;
+    left: 16px;
+    top: -80px;
+    z-index: 200;
+    padding: 12px 18px;
+    border-radius: 999px;
+    background: #fff;
+    color: #101014;
+    font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: top 0.25s var(--ease), opacity 0.2s;
+  }
+  .skip-link:focus {
+    top: 14px;
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+@layer utilities {
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0 0 0 0);
+    white-space: nowrap;
+    border: 0;
+  }
+}
