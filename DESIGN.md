@@ -125,7 +125,7 @@ Density is low and the rhythm is generous (section padding 76px to 148px). Motio
 **Key Characteristics:**
 - Per-section theme (dark, light, gray) set by a class that swaps foreground, muted, line, card, accent and field variables.
 - One red, with two text variants tuned for contrast per background.
-- Pill buttons with a circular arrow chip; 24px cards; 14px fields; pill nav bar.
+- Flat pill buttons with no icons and a colour sweep on hover; 24px cards; 14px fields; glass pill nav bar.
 - Solid fills only; the only shadows are short-offset, short-blur and neutral.
 - Phosphor regular icons, filled with currentColor.
 
@@ -172,7 +172,7 @@ Two steps of black as the stage, white only for the form card, with one red as t
 
 ## Layout
 
-Single column on mobile, switching to 5/7, 6/5, 7/5 or 4/7 two-column grids at 1024px; services go 2-up at 640px and 4-up at 1100px; the method is 4-up at 900px. Container is 1240px (1360px from 1700px) inside a fluid gutter of 18px to 56px. Section padding is fluid 76px to 148px. Card grids use 14px to 16px gaps. Side text columns are sticky (top 120px to 130px) beside long content. The nav collapses to a full-screen sheet below 1100px. Section order alternates themes: hero black, red band, white, black, white, grey, black, white with red case panel, grey, white, black, footer black.
+Single column on mobile, switching to 5/6, 6/5, 8/4 or 4/7 two-column grids at 1024px; services go 2-up at 640px and 4-up at 1100px; the method is 4-up at 900px. Container is 1240px (1360px from 1700px) inside a fluid gutter of 18px to 56px. Section padding is fluid 76px to 148px. Card grids use 14px to 16px gaps. Side text columns are sticky (top 120px to 130px) beside long content. The nav collapses to a full-screen sheet below 1100px. Section order alternates themes: hero black, red band, white, black, white, grey, black, white with red case panel, grey, white, black, footer black.
 
 ## Elevation & Depth
 
@@ -185,7 +185,7 @@ Flat by default; depth comes from tonal steps between sections and cards, and 1p
 - **Field focus ring** (`box-shadow: 0 0 0 4px rgba(228,17,29,0.14)`): input focus, with a red border.
 
 ### Named Rules
-**The Solid Surface Rule.** No gradient fills, blur, glass or texture. The only gradient in the CSS is a scrim over an optional service photo. The one photograph on the page is the client's cover in the hero, denoised at the file level and shown with no filter, scale or veil on top.
+**The Solid Surface Rule.** No gradient fills, blur, glass or texture, with one deliberate exception: the top nav bar and its dropdown menus are frosted glass (translucent with a backdrop blur), which the client asked for. The only gradient in the CSS is a scrim over an optional service photo. The one photograph on the page is the client's cover in the hero, used exactly as the client sent it (byte for byte, no denoising or sharpening) with no filter or veil on top.
 
 ## Shapes
 
@@ -195,24 +195,24 @@ Pills for anything you press (buttons, chips, nav bar, nav links, skip link); 24
 
 ### Buttons
 - **Shape:** pill (999px), 58px tall (48px small), 600 weight.
-- **Primary:** Signal Red fill, white text, with a 42px white circular chip holding a red arrow; right padding shrinks to 8px to seat the chip.
-- **Dark:** ink fill, red chip. **Outline:** 1.5px border at 28% of foreground, chip filled with foreground color.
-- **Hover / Active:** lifts 2px, primary darkens to Pressed Red, the chip rotates -45deg (arrow points up and right); active scales to 0.985. Magnetic buttons skip the CSS lift. Focus is a 2px accent outline at 3px offset.
-- **Text link:** bold with a 2px underline and an arrow that slides 4px; turns accent on hover.
+- **Primary:** Signal Red fill, white text, 58px tall pill, no icon.
+- **Dark:** ink fill. **Outline:** 1.5px border at 28% of the foreground colour, transparent fill.
+- **Hover / Active:** lifts 2px while a darker colour sweeps across the fill from the left (a pseudo-element scaled on X, transform only); active scales to 0.985. Magnetic buttons skip the CSS lift. Focus is a 2px accent ring with offset.
+- **Text link:** bold with a 2px underline and no icon; turns accent on hover.
 
 ### Cards / Containers
 - **Service card:** vertical 9:16 (the size of the Exclusive Car video card, up to about 380px wide and 667px tall on a large monitor), 24px radius, Card Black fill, 1px hairline, 24px padding, in a wider 1560px container; title and a circular arrow chip on top, a photo area in the middle (without a photo it shows a white 72px to 96px icon tile with a red icon; with an `img.svc__photo` the photo fills the card under a dark scrim), lead and text at the bottom. On mobile the four cards are a horizontal scroll-snap row. On hover it lifts 6px, the border turns red, the icon tile fills red and the arrow rotates 45deg and fills red.
 - **Quote / steps:** 24px, card variable fill, no border, no shadow.
-- **Contact:** two columns from 1024px (5/6). Left: heading, lead, channel cards (WhatsApp outlined in red with a red icon tile, Instagram and e-mail with white icon tiles; a channel that has no configured link is hidden) and three check-marked assurances. Right: the form in a 28px card on the second black step with a thin red arc that rotates around its border (7s, off under reduced motion), outlined pill chips that show a check when selected, and a red pill submit with the arrow chip. At the foot of the section the KZN Marketing Studio logo is shown very large at 7.5% opacity, bleeding off the bottom edge.
+- **Contact:** two columns from 1024px (5/6). Left: heading, lead, channel cards (WhatsApp outlined in red with a red icon tile, Instagram and e-mail with white icon tiles; a channel that has no configured link is hidden) and three check-marked assurances. Right: a compact form (about 775px tall at 1440, max 40rem wide) in a 28px card on the second black step with a thin red arc that rotates around its border (7s, off under reduced motion): two rows of two fields, the "O que você procura?" chips (multiple choice), two styled drop-down selects for revenue and investment, and a red pill submit. The WhatsApp message lists each chosen option as a bullet. At the foot of the section the KZN Marketing Studio logo is shown very large at 7.5% opacity, bleeding off the bottom edge.
 - **Case:** on black (second step). Two brand labels, one white and one black, tilted -6deg and +4deg with a deep short shadow, sit beside the heading; below them a 24px bordered bar of four metric cells divided by 1px white hairlines, each value in red text with its label under it.
 
 ### Inputs / Fields
 - **Style:** 56px, 14px radius, 1.5px border (#d3d3da), field-variable fill, 1rem text.
 - **Focus:** border turns red plus a 4px 14% red ring. **Error:** border #d4101b with red helper text below.
-- **Chips:** pill 46px, 1.5px border; selected fills red with white text.
+- **Chips:** pill 40px, 1px border; several can be selected (checkboxes); selected fills red with white text and a check mark. "Ainda não sei exatamente" is exclusive with the others.
 
 ### Navigation
-Floating pill bar 66px tall, 14px from the top, Deep Black with a 10% white hairline. Links are 500 weight 0.92rem pills that gain a 9% white fill on hover or current. Three dropdown menus (22px radius) carry a red icon and a two-line item. The logo shows only KZN (also on phones and tablets) and opens to the full wordmark on hover at 1100px and up with a mouse. Below 1100px a circular toggle opens a full-screen black sheet with 1.35rem links.
+Floating frosted-glass pill bar 66px tall, 14px from the top: 46% Deep Black with an 18px backdrop blur and a 16% white hairline (56% once scrolled); it falls back to solid Deep Black without backdrop-filter support or with reduced transparency. The dropdown menus use the same glass. Links are 500 weight 0.92rem pills that gain a 9% white fill on hover or current. Three dropdown menus (22px radius) carry a red icon and a two-line item. The logo shows only KZN (also on phones and tablets) and opens to the full wordmark on hover at 1100px and up with a mouse. Below 1100px a circular toggle opens a full-screen black sheet with 1.35rem links.
 
 ### Hero Curtain
 The hero is the client's cover photo filling the whole screen (100svh) and is `position: sticky` at the top; the next section scrolls up over it like a curtain, with a 32px rounded top edge and a 1px white hairline at 16%. While it is covered the photo scales to 1.12, the content moves up 7% and fades to 25%, and a black shade rises to 78% (scroll-driven, transform and opacity only). Two CTAs sit under the lead: the red pill with an arrow chip ("Quero estruturar meu marketing") and an outlined pill with a down-arrow chip ("Saiba mais") that scrolls the second screen flush to the top. On phones the two buttons stack at the same width; below 560px of viewport height the hero stops being sticky so nothing is cut.
@@ -225,7 +225,7 @@ Hairline-ruled rows, 76px minimum, a 38px circular marker that fills red and rot
 ### Do:
 - **Do** keep sections black and alternate the two black steps with .section--alt; switch a section to on-light or on-gray only on purpose, and let variables supply colors.
 - **Do** use Signal Red only for action, one emphasis word and the case figures, and the contrast-tuned text reds for text.
-- **Do** make every primary action a pill with the circular arrow chip that rotates on hover.
+- **Do** make every primary action a flat pill with no icon and the hover colour sweep.
 - **Do** keep radii to the set: pill, 24px cards, 14px fields.
 - **Do** animate transform and opacity only, and keep a no-JS and reduced-motion fallback.
 

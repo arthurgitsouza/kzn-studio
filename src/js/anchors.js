@@ -1,9 +1,13 @@
 // Âncoras internas: Lenis quando existir, rolagem nativa caso contrário.
 const reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
 
+// Marca o serviço no formulário (a seleção é múltipla: soma ao que já estiver marcado)
 export function selectService(value) {
-  const radio = [...document.querySelectorAll('input[name="procura"]')].find((r) => r.value === value);
-  if (radio) radio.checked = true;
+  const boxes = [...document.querySelectorAll('input[name="procura"]')];
+  const box = boxes.find((r) => r.value === value);
+  if (!box) return;
+  box.checked = true;
+  boxes.filter((b) => b.value === 'Ainda não sei exatamente').forEach((b) => (b.checked = false));
 }
 
 export function initAnchors() {
@@ -28,7 +32,10 @@ export function initAnchors() {
     requestAnimationFrame(() => {
       const lenis = window.__lenis;
       if (lenis) {
-        lenis.scrollTo(target, { offset: pad - landing, duration: 1.35, easing: (t) => 1 - Math.pow(1 - t, 4) });
+        // #inicio: a capa fica "colada" no topo (sticky), então a posição dela nunca muda ao rolar.
+        // Por isso o logo e o "Voltar ao topo" vão direto para o topo da página.
+        if (id === '#inicio') lenis.scrollTo(0, { duration: 1.6, easing: (t) => 1 - Math.pow(1 - t, 4) });
+        else lenis.scrollTo(target, { offset: pad - landing, duration: 1.35, easing: (t) => 1 - Math.pow(1 - t, 4) });
       } else {
         const top = target.getBoundingClientRect().top + window.scrollY - landing;
         window.scrollTo({ top: id === '#inicio' ? 0 : top, behavior: reduce.matches ? 'auto' : 'smooth' });

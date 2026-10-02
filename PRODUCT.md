@@ -24,7 +24,7 @@ Conteúdo vem do PDF do cliente "Landing Page de Conversão Kzn Studio" (hero, s
 ## Capabilities and Constraints
 - Sem backend: o formulário valida no cliente e abre `wa.me` com a mensagem pronta (+ UTMs).
 - Serviços: Planejamento estratégico, Tráfego pago, Design & Criativos, Landing Pages & Sites. Cada card terá a foto da pessoa responsável (a enviar).
-- Só uma foto recebida: a da capa do cliente (equipe em volta da mesa de planejamento, `10.webp`, 1920x1080, com grão gravado no arquivo). Ela entra no hero, tratada com redução de ruído (ffmpeg nlmeans) e sem filtro nenhum por cima. Para o resto do site não há foto: ele funciona sem fotos e os cards de serviço aceitam uma foto HD opcional.
+- Só uma foto recebida: a da capa do cliente (equipe em volta da mesa de planejamento, `10.webp`/`21.webp`, 1920x1080, com grão no arquivo). Ela entra no hero **exatamente como o cliente enviou** (byte a byte, sem redução de ruído nem nitidez): uma versão tratada foi testada em 01/10/2026 e o cliente achou a qualidade baixa. O 1280 é só uma redução em qualidade 94. Para o resto do site não há foto.
 - Placeholders marcados "Exemplo" para: números do case, logos de clientes, depoimentos, fotos da equipe. Nada disso pode ser inventado.
 - WhatsApp, Instagram, e-mail, portfólio, domínio e IDs de rastreamento ainda não foram informados.
 - Mobile-first, sem rolagem horizontal em 390, 820, 1440 e 1920 px; respeitar `prefers-reduced-motion`.
@@ -34,8 +34,8 @@ Conteúdo vem do PDF do cliente "Landing Page de Conversão Kzn Studio" (hero, s
 - Logos do kit: Extended (KZN + MARKETING STUDIO, branca), blocos Tag, em `public/brand/`. O logo anima no desktop: recolhido mostra KZN e abre completo ao passar o mouse.
 - Paleta: preto e vermelho (#e4111d). Fundo majoritariamente preto (decisão do usuário e do cliente em 01/10/2026), alternando dois tons de preto; branco só no cartão do formulário.
 - **Tipografia: Poppins**, única família (a fonte que o cliente usou na capa dele).
-- **Direção visual (decisão do usuário, 01/10/2026):** design **minimalista, limpo e sólido**, no estilo da Nouhau (barra de menu em pílula com 3 menus suspensos e botão, títulos discretos, cards limpos) e do site que já fizemos para o Exclusive Car (`C:\dev\exclusive-car`: preto + branco + vermelho, tipografia grande, botões vermelhos em pílula com seta). Botões bonitos e bem acabados.
-- **Proibido:** grão/ruído em qualquer lugar, brilhos borrados, vidro, design pesado. A foto da capa do cliente tem grão no arquivo original: usar somente a versão tratada (`public/hero/`), nunca clarear/afiar/ampliar por cima. Demais fotos só em alta definição (a enviar pelo cliente).
+- **Direção visual (decisão do usuário, 01/10/2026):** design **minimalista, limpo e sólido**, no estilo da Nouhau (barra de menu em pílula com efeito vidro, 3 menus suspensos e botão sem setas, títulos discretos, cards limpos) e do site que já fizemos para o Exclusive Car (`C:\dev\exclusive-car`: preto + branco + vermelho, tipografia grande, botões vermelhos em pílula com seta). Botões bonitos e bem acabados.
+- **Proibido:** grão/ruído criado por nós, brilhos borrados, design pesado. Vidro só na barra do menu e nos menus suspensos (pedido do cliente). A foto da capa não leva filtro nenhum por cima.
 - **A foto da capa do cliente deve aparecer no hero** (decisão do usuário em 01/10/2026, depois de uma versão sem foto). O restante do layout não segue o design da capa dele: segue o estilo limpo da Nouhau e do Exclusive Car.
 - Os cards de serviço **não** mostram uma pessoa por card (desenho rejeitado pelo usuário). Fotos reais, quando existirem, entram como opção do card.
 

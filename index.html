@@ -122,7 +122,7 @@
         </ul>
       </nav>
 
-      <a class="btn btn--primary btn--sm nav__cta" href="#metodo">Ver como trabalhamos <span class="btn__arrow"><svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></span></a>
+      <a class="btn btn--primary btn--sm nav__cta" href="#metodo">Ver como trabalhamos</a>
 
       <button class="nav__toggle" type="button" aria-expanded="false" aria-controls="sheet" aria-label="Abrir menu">
         <span class="nav__toggle-bars" aria-hidden="true"><i></i><i></i></span>
@@ -140,8 +140,7 @@
           <li><a href="#faq">Dúvidas</a></li>
         </ul>
       </nav>
-      <a class="btn btn--primary btn--block" href="#contato">Quero estruturar meu marketing
-        <span class="btn__arrow"><svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></span></a>
+      <a class="btn btn--primary btn--block" href="#contato">Quero estruturar meu marketing</a>
     </div>
   </header>
 
@@ -151,8 +150,8 @@
       <div class="hero__media">
         <img
           src="/hero/cover-1920.webp"
-          srcset="/hero/cover-800.webp 800w, /hero/cover-1280.webp 1280w, /hero/cover-1920.webp 1920w"
-          sizes="(max-width: 899px) 125vw, 100vw"
+          srcset="/hero/cover-1280.webp 1280w, /hero/cover-1920.webp 1920w"
+          sizes="(max-width: 899px) 250vw, 100vw"
           width="1920" height="1080"
           alt="Equipe do KZN reunida em volta de uma mesa de planejamento"
           fetchpriority="high" decoding="async" />
@@ -162,34 +161,29 @@
         <h1 class="hero__title" id="hero-title" data-split>Marketing pensado para transformar <em>atenção</em> em crescimento.</h1>
         <p class="hero__lead" data-reveal>Estratégia, tráfego, design e páginas de conversão trabalhando juntos para construir marcas mais fortes e operações que vendem melhor.</p>
         <div class="hero__cta" data-reveal>
-          <a class="btn btn--primary btn--hero" href="#contato" data-magnetic>Quero estruturar meu marketing
-            <span class="btn__arrow"><svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></span></a>
-          <a class="btn btn--outline btn--hero" href="#operacao" data-offset="0" data-magnetic>Saiba mais
-            <span class="btn__arrow btn__arrow--down"><svg class="icon" aria-hidden="true"><use href="#i-arrow-down"/></svg></span></a>
+          <a class="btn btn--primary btn--hero" href="#contato" data-magnetic>Quero estruturar meu marketing</a>
+          <a class="btn btn--outline btn--hero" href="#operacao" data-offset="0" data-magnetic>Saiba mais</a>
         </div>
       </div>
     </section>
 
     <!-- ═════════════ SUBHERO ═════════════ -->
     <section class="section subhero on-dark" id="operacao" aria-labelledby="operacao-title">
-      <div class="container">
+      <div class="container subhero__grid">
         <h2 class="h2" id="operacao-title" data-split>Não fazemos peças soltas. Construímos uma <em>operação.</em></h2>
 
-        <div class="subhero__grid">
-          <div class="subhero__main">
-            <p class="statement" data-scrub>Unimos planejamento, mídia, criação e tecnologia para que cada parte do seu marketing tenha um propósito: atrair, comunicar e converter. Menos improviso. Mais direção, consistência e execução.</p>
-            <div data-reveal>
-              <a class="link-arrow" href="#metodo">Conheça nossa forma de trabalhar
-                <svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></a>
-            </div>
+        <div class="subhero__main">
+          <p class="statement" data-scrub>Unimos planejamento, mídia, criação e tecnologia para que cada parte do seu marketing tenha um propósito: atrair, comunicar e converter. Menos improviso. Mais direção, consistência e execução.</p>
+          <div data-reveal>
+            <a class="link-text" href="#metodo">Conheça nossa forma de trabalhar</a>
           </div>
-
-          <ul class="triad" data-reveal-group aria-label="Atrair, comunicar e converter">
-            <li class="triad__item"><strong>Atrair</strong><span>Sua empresa diante das pessoas certas.</span></li>
-            <li class="triad__item"><strong>Comunicar</strong><span>Mensagem e criativo com propósito.</span></li>
-            <li class="triad__item"><strong>Converter</strong><span>Clique que vira próxima ação.</span></li>
-          </ul>
         </div>
+
+        <ul class="triad" data-reveal-group aria-label="Atrair, comunicar e converter">
+          <li class="triad__item"><strong>Atrair</strong><span>Sua empresa diante das pessoas certas.</span></li>
+          <li class="triad__item"><strong>Comunicar</strong><span>Mensagem e criativo com propósito.</span></li>
+          <li class="triad__item"><strong>Converter</strong><span>Clique que vira próxima ação.</span></li>
+        </ul>
       </div>
     </section>
 
@@ -369,11 +363,6 @@
             <footer><b>Nome do cliente</b><span>Cargo, Empresa</span></footer>
           </li>
         </ul>
-
-        <div class="proof__note" data-reveal>
-          <h3>Marketing construído próximo de quem está construindo o negócio.</h3>
-          <p>Não operamos como um fornecedor distante. Entramos no contexto da empresa, entendemos o momento e ajudamos a direcionar o que precisa ser feito.</p>
-        </div>
       </div>
     </section>
 
@@ -462,45 +451,47 @@
           </div>
 
           <fieldset class="field field--group" aria-describedby="e-procura">
-            <legend>O que você procura?</legend>
+            <legend>O que você procura? <span class="opt">Pode marcar mais de uma</span></legend>
             <div class="opts">
-              <label class="opt-chip"><input type="radio" name="procura" value="Planejamento estratégico" /><span>Planejamento estratégico</span></label>
-              <label class="opt-chip"><input type="radio" name="procura" value="Tráfego pago" /><span>Tráfego pago</span></label>
-              <label class="opt-chip"><input type="radio" name="procura" value="Design &amp; Criativos" /><span>Design &amp; Criativos</span></label>
-              <label class="opt-chip"><input type="radio" name="procura" value="Landing Page ou Site" /><span>Landing Page ou Site</span></label>
-              <label class="opt-chip"><input type="radio" name="procura" value="Estrutura completa de marketing" /><span>Estrutura completa de marketing</span></label>
-              <label class="opt-chip"><input type="radio" name="procura" value="Ainda não sei exatamente" /><span>Ainda não sei exatamente</span></label>
+              <label class="opt-chip"><input type="checkbox" name="procura" value="Planejamento estratégico" /><span>Planejamento estratégico</span></label>
+              <label class="opt-chip"><input type="checkbox" name="procura" value="Tráfego pago" /><span>Tráfego pago</span></label>
+              <label class="opt-chip"><input type="checkbox" name="procura" value="Design &amp; Criativos" /><span>Design &amp; Criativos</span></label>
+              <label class="opt-chip"><input type="checkbox" name="procura" value="Landing Page ou Site" /><span>Landing Page ou Site</span></label>
+              <label class="opt-chip"><input type="checkbox" name="procura" value="Estrutura completa de marketing" /><span>Estrutura completa de marketing</span></label>
+              <label class="opt-chip"><input type="checkbox" name="procura" value="Ainda não sei exatamente" /><span>Ainda não sei exatamente</span></label>
             </div>
             <p class="field__err" id="e-procura" hidden></p>
           </fieldset>
 
-          <fieldset class="field field--group" aria-describedby="e-fat">
-            <legend>Qual é o faturamento médio mensal da sua empresa?</legend>
-            <div class="opts">
-              <label class="opt-chip"><input type="radio" name="faturamento" value="Até R$ 30 mil" /><span>Até R$ 30 mil</span></label>
-              <label class="opt-chip"><input type="radio" name="faturamento" value="R$ 30 mil a R$ 50 mil" /><span>R$ 30 mil a R$ 50 mil</span></label>
-              <label class="opt-chip"><input type="radio" name="faturamento" value="R$ 50 mil a R$ 100 mil" /><span>R$ 50 mil a R$ 100 mil</span></label>
-              <label class="opt-chip"><input type="radio" name="faturamento" value="R$ 100 mil a R$ 300 mil" /><span>R$ 100 mil a R$ 300 mil</span></label>
-              <label class="opt-chip"><input type="radio" name="faturamento" value="R$ 300 mil a R$ 1 milhão" /><span>R$ 300 mil a R$ 1 milhão</span></label>
-              <label class="opt-chip"><input type="radio" name="faturamento" value="Acima de R$ 1 milhão" /><span>Acima de R$ 1 milhão</span></label>
+          <div class="form__row form__row--selects">
+            <div class="field">
+              <label for="f-fat">Qual é o faturamento médio mensal da sua empresa?</label>
+              <span class="select"><select id="f-fat" name="faturamento" required aria-describedby="e-fat">
+                <option value="" selected disabled>Selecione</option>
+                <option value="Até R$ 30 mil">Até R$ 30 mil</option>
+                <option value="R$ 30 mil a R$ 50 mil">R$ 30 mil a R$ 50 mil</option>
+                <option value="R$ 50 mil a R$ 100 mil">R$ 50 mil a R$ 100 mil</option>
+                <option value="R$ 100 mil a R$ 300 mil">R$ 100 mil a R$ 300 mil</option>
+                <option value="R$ 300 mil a R$ 1 milhão">R$ 300 mil a R$ 1 milhão</option>
+                <option value="Acima de R$ 1 milhão">Acima de R$ 1 milhão</option>
+              </select></span>
+              <p class="field__err" id="e-fat" hidden></p>
             </div>
-            <p class="field__err" id="e-fat" hidden></p>
-          </fieldset>
-
-          <fieldset class="field field--group" aria-describedby="e-inv">
-            <legend>Qual faixa de investimento mensal em marketing faz sentido para sua empresa hoje?</legend>
-            <div class="opts">
-              <label class="opt-chip"><input type="radio" name="investimento" value="Até R$ 2.500" /><span>Até R$ 2.500</span></label>
-              <label class="opt-chip"><input type="radio" name="investimento" value="R$ 2.500 a R$ 5.000" /><span>R$ 2.500 a R$ 5.000</span></label>
-              <label class="opt-chip"><input type="radio" name="investimento" value="R$ 5.000 a R$ 10.000" /><span>R$ 5.000 a R$ 10.000</span></label>
-              <label class="opt-chip"><input type="radio" name="investimento" value="R$ 10.000 a R$ 20.000" /><span>R$ 10.000 a R$ 20.000</span></label>
-              <label class="opt-chip"><input type="radio" name="investimento" value="Acima de R$ 20.000" /><span>Acima de R$ 20.000</span></label>
+            <div class="field">
+              <label for="f-inv">Qual faixa de investimento mensal em marketing faz sentido para sua empresa hoje?</label>
+              <span class="select"><select id="f-inv" name="investimento" required aria-describedby="e-inv">
+                <option value="" selected disabled>Selecione</option>
+                <option value="Até R$ 2.500">Até R$ 2.500</option>
+                <option value="R$ 2.500 a R$ 5.000">R$ 2.500 a R$ 5.000</option>
+                <option value="R$ 5.000 a R$ 10.000">R$ 5.000 a R$ 10.000</option>
+                <option value="R$ 10.000 a R$ 20.000">R$ 10.000 a R$ 20.000</option>
+                <option value="Acima de R$ 20.000">Acima de R$ 20.000</option>
+              </select></span>
+              <p class="field__err" id="e-inv" hidden></p>
             </div>
-            <p class="field__err" id="e-inv" hidden></p>
-          </fieldset>
+          </div>
 
-          <button class="btn btn--primary btn--block" type="submit" data-magnetic>Quero trabalhar com o KZN
-            <span class="btn__arrow"><svg class="icon" aria-hidden="true"><use href="#i-arrow-right"/></svg></span></button>
+          <button class="btn btn--primary btn--block" type="submit" data-magnetic>Quero trabalhar com o KZN</button>
           <p class="form__micro">Primeiro entendemos seu negócio. Depois avaliamos como podemos contribuir.</p>
           <p class="form__status" id="form-status" role="status" aria-live="polite" hidden></p>
         </form>

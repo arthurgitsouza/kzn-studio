@@ -1,6 +1,6 @@
 # KZN Marketing Studio: landing page de conversão (versão "Limpo")
 
-Design minimalista e sólido: fundo quase todo preto (dois tons), com um vermelho e branco só onde importa. Sem grão, sem vidro, sem brilho borrado. Única fonte: **Poppins**. Referências de estilo: Nouhau e o site do Exclusive Car. Vite + JavaScript puro + GSAP/ScrollTrigger + Lenis. Sem framework, sem backend.
+Design minimalista e sólido: fundo quase todo preto (dois tons), com um vermelho e branco só onde importa. Sem grão, sem brilho borrado; vidro só na barra do menu. Única fonte: **Poppins**. Referências de estilo: Nouhau e o site do Exclusive Car. Vite + JavaScript puro + GSAP/ScrollTrigger + Lenis. Sem framework, sem backend.
 
 ## Rodar
 
@@ -29,7 +29,7 @@ npm run icons      # regenera o sprite de ícones (src/assets/icons.svg) a parti
 
 **Blocos de exemplo:** logos, depoimentos e números do case aparecem com a etiqueta "Exemplo" enquanto `showPlaceholders: true`. Sem material real na hora de publicar, ponha `showPlaceholders: false` e eles somem.
 
-**Formulário:** valida e abre o WhatsApp com a mensagem pronta (nome, empresa, WhatsApp, Instagram/site, o que procura, faturamento, investimento e UTMs da URL). Não há backend; se quiser guardar os leads em planilha/CRM, o ponto de ligação é `src/js/form.js`.
+**Formulário:** compacto (nome, empresa, WhatsApp, Instagram/site, "O que você procura?" com **várias opções**, e duas listas suspensas para faturamento e investimento). Valida e abre o WhatsApp com a mensagem formatada: rótulos em negrito e uma lista com marcadores para o que a pessoa procura, mais as UTMs da URL. Não há backend; se quiser guardar os leads em planilha/CRM, o ponto de ligação é `src/js/form.js`.
 
 ## Publicar no Cloudflare Pages
 

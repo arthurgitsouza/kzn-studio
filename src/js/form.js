@@ -2,6 +2,7 @@
 import { waUrl, trackLead } from './contact.js';
 
 const UTM_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term'];
+const UNSURE = 'Ainda não sei exatamente';
 
 function maskPhone(value) {
   const d = value.replace(/\D/g, '').slice(0, 11);
@@ -11,9 +12,11 @@ function maskPhone(value) {
   return `(${d.slice(0, 2)}) ${d.slice(2, 7)}-${d.slice(7)}`;
 }
 
+// Mensagem do WhatsApp: *negrito* nos rótulos e uma lista com marcadores para o que a pessoa procura.
 export function buildMessage(data) {
   const params = new URLSearchParams(location.search);
   const utm = UTM_KEYS.filter((k) => params.get(k)).map((k) => `${k}=${params.get(k)}`);
+  const procura = Array.isArray(data.procura) ? data.procura : [data.procura].filter(Boolean);
   const lines = [
     'Olá, KZN! Vim pelo site e quero conversar sobre o momento da minha empresa.',
     '',
@@ -21,7 +24,10 @@ export function buildMessage(data) {
     `*Empresa:* ${data.empresa}`,
     `*WhatsApp:* ${data.whatsapp}`,
     `*Instagram/site:* ${data.perfil || 'não informado'}`,
-    `*Procuro:* ${data.procura}`,
+    '',
+    '*O que procuro:*',
+    ...procura.map((item) => `• ${item}`),
+    '',
     `*Faturamento médio mensal:* ${data.faturamento}`,
     `*Investimento mensal em marketing:* ${data.investimento}`,
   ];
@@ -34,9 +40,17 @@ export function initForm(config) {
   if (!form) return;
   const status = document.getElementById('form-status');
   const phone = form.elements.whatsapp;
+  const needs = [...form.querySelectorAll('input[name="procura"]')];
 
   phone.addEventListener('input', () => {
     phone.value = maskPhone(phone.value);
+  });
+
+  // "Ainda não sei exatamente" não combina com as outras opções: marcar uma desmarca a outra.
+  form.addEventListener('change', (e) => {
+    if (e.target.name !== 'procura' || !e.target.checked) return;
+    if (e.target.value === UNSURE) needs.filter((n) => n !== e.target).forEach((n) => (n.checked = false));
+    else needs.filter((n) => n.value === UNSURE).forEach((n) => (n.checked = false));
   });
 
   const fieldOf = (el) => el.closest('.field');
@@ -45,7 +59,7 @@ export function initForm(config) {
   const setError = (field, errId, msg) => {
     const err = errEl(errId);
     field.classList.toggle('has-error', !!msg);
-    field.querySelector('input')?.setAttribute('aria-invalid', msg ? 'true' : 'false');
+    field.querySelector('input, select')?.setAttribute('aria-invalid', msg ? 'true' : 'false');
     if (err) {
       err.textContent = msg || '';
       err.hidden = !msg;
@@ -67,16 +81,16 @@ export function initForm(config) {
       return setError(fieldOf(phone), 'e-whats', d.length < 10 ? 'Informe um WhatsApp com DDD.' : '');
     },
     procura: () => {
-      const ok = !!form.elements.procura.value;
-      return setError(fieldOf(form.elements.procura[0]), 'e-procura', ok ? '' : 'Escolha uma opção.');
+      const ok = needs.some((n) => n.checked);
+      return setError(fieldOf(needs[0]), 'e-procura', ok ? '' : 'Marque pelo menos uma opção.');
     },
     faturamento: () => {
       const ok = !!form.elements.faturamento.value;
-      return setError(fieldOf(form.elements.faturamento[0]), 'e-fat', ok ? '' : 'Escolha uma faixa de faturamento.');
+      return setError(fieldOf(form.elements.faturamento), 'e-fat', ok ? '' : 'Escolha uma faixa de faturamento.');
     },
     investimento: () => {
       const ok = !!form.elements.investimento.value;
-      return setError(fieldOf(form.elements.investimento[0]), 'e-inv', ok ? '' : 'Escolha uma faixa de investimento.');
+      return setError(fieldOf(form.elements.investimento), 'e-inv', ok ? '' : 'Escolha uma faixa de investimento.');
     },
   };
 
@@ -93,11 +107,13 @@ export function initForm(config) {
     const results = Object.values(checks).map((c) => c());
     if (results.includes(false)) {
       const bad = form.querySelector('.has-error');
-      (bad.querySelector('input') || bad).focus?.();
+      (bad.querySelector('input, select') || bad).focus?.();
       bad.scrollIntoView({ block: 'center', behavior: 'smooth' });
       return;
     }
-    const data = Object.fromEntries(new FormData(form).entries());
+    const fd = new FormData(form);
+    const data = Object.fromEntries(fd.entries());
+    data.procura = fd.getAll('procura');
     const url = waUrl(config, buildMessage(data));
 
     trackLead();
