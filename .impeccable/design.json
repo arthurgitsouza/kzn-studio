@@ -107,30 +107,30 @@
   ],
   "narrative": {
     "northStar": "The Clean Ledger",
-    "overview": "A single-page agency site where typography and one red do all the work. Sections are flat, solid fields that alternate black, white and light grey; the page turns from one to the next like pages, with no texture, gradient, glass or blurred glow. Poppins is the only family. Red is spent sparingly: the primary button, one highlighted word per heading, the single moving band, the case panel and small icon accents.",
+    "overview": "A single-page agency site where typography and one red do all the work. Sections are flat fields that alternate two blacks; the cover photo is held in place while the next section slides over it like a curtain. No texture or grain; the only softness is the frosted nav bar and two dispersed red glows behind each black section, both asked for by the client. Poppins is the only family. Red is spent sparingly: the primary button, one highlighted word per heading, the case panel, small icon accents and the glows.",
     "keyCharacteristics": [
       "Per-section theme (dark, light, gray) set by a class that swaps foreground, muted, line, card, accent and field variables.",
       "One red, with two text variants tuned for contrast per background.",
-      "Pill buttons with a circular arrow chip; 24px cards; 14px fields; pill nav bar.",
-      "Solid fills only; the only shadows are short-offset, short-blur and neutral.",
+      "Flat pill buttons with no icon and a colour sweep on hover; 24px cards; 14px fields; frosted pill nav bar.",
+      "Solid fills; the only gradients are the two red section glows; the only shadows are short-offset, short-blur and neutral.",
       "Phosphor regular icons, filled with currentColor."
     ],
     "rules": [
-      { "name": "The One Red Rule", "body": "Red is the only chroma. It marks action, one emphasis word, the band and the case panel; never decorative fills, never a second accent.", "section": "colors" },
+      { "name": "The One Red Rule", "body": "Red is the only chroma. It marks action, one emphasis word, the case panel and the section glows; never a second accent.", "section": "colors" },
       { "name": "The Theme Class Rule", "body": "A section picks on-dark, on-light or on-gray and reads colors from variables; do not hard-code foreground or card colors inside a section.", "section": "colors" },
       { "name": "The Weight Not Face Rule", "body": "Hierarchy comes from weight (400, 500, 600, 700) and size; never add a second family.", "section": "typography" },
       { "name": "The Tight Heading Rule", "body": "Display and headline sizes carry negative tracking (-0.02em to -0.035em); body never does.", "section": "typography" },
-      { "name": "The Solid Surface Rule", "body": "No gradient fills, blur, glass or texture. The only gradient in the CSS is a scrim over an optional service photo.", "section": "elevation" }
+      { "name": "The Solid Surface Rule", "body": "No gradient fills, blur, glass or texture, except the nav glass and the two red radial glows per section, both requested by the client. The cover photo carries no filter.", "section": "elevation" }
     ],
     "dos": [
       "Do alternate section themes with on-dark, on-light and on-gray and let variables supply colors.",
-      "Do use Signal Red only for action, one emphasis word, the band and the case panel, and the contrast-tuned text reds for text.",
-      "Do make every primary action a pill with the circular arrow chip that rotates on hover.",
+      "Do use Signal Red only for action, one emphasis word, the case panel and the section glows, and the contrast-tuned text reds for text.",
+      "Do make every primary action a flat pill with no icon and the hover colour sweep.",
       "Do keep radii to the set: pill, 24px cards, 14px fields.",
       "Do animate transform and opacity only, and keep a no-JS and reduced-motion fallback."
     ],
     "donts": [
-      "Don't add gradients, grain, glass, blur or colored glow; the earlier glass-red, noir-lines and photo-table directions were rejected and are not part of this system.",
+      "Don't add gradients, grain, glass, blur or glow beyond the nav glass and the section red glows; the earlier glass-red, noir-lines and photo-table directions were rejected and are not part of this system.",
       "Don't introduce a second typeface or a second accent color.",
       "Don't use #e4111d for small text; use the on-dark or on-light text reds.",
       "Don't use Japanese characters anywhere in the KZN site.",

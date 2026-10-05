@@ -49,6 +49,11 @@ Os caminhos são relativos (`base: './'`), então funciona em domínio próprio 
 - `prefers-reduced-motion`: sem Lenis, sem GSAP, sem preloader, tudo visível de imediato (o módulo de movimento nem é baixado).
 - O logo do menu mostra só **KZN** (também no celular) e, no desktop com mouse, abre completo ("MARKETING STUDIO") ao passar o mouse; abre sozinho uma vez ao entrar.
 - A **capa é tela cheia e fica presa no topo** (`position: sticky`): a segunda seção sobe por cima dela. O efeito é conduzido pelo scroll em `heroCurtain()` (`src/js/motion.js`). O botão "Saiba mais" usa `data-offset="0"` para encostar a segunda tela no topo.
+- **Toda animação de seção se refaz** a cada visita, descendo ou subindo (`reveals()` em `src/js/motion.js`). A sequência de cores da 2ª seção (Atrair → Comunicar → Converter → link) usa os tempos do objeto `SEQ` no topo desse arquivo: `delay` (espera, hoje 1 s depois que o bloco aparece na tela), `step` (tempo de cada palavra), `linkGap` e `linkHold`.
+- **Borrões vermelhos** nas seções pretas: `.section::before` e `::after` em `src/styles/sections.css` (tamanho, posição e intensidade).
+- **Menu do celular** (`.sheet` em `src/styles/components.css`, marcação em `index.html`, destaque da seção atual em `src/js/header.js`): vidro com desfoque forte, borrões vermelhos e 4 itens. Para trocar os itens, edite a lista `.sheet__nav` no `index.html`.
+- **Sem o azul do toque no celular:** `-webkit-tap-highlight-color` transparente em `src/styles/tokens.css`.
+- **Ordem da página:** capa, 2ª tela, serviços, estratégia, criatividade, método, case, clientes, contato, FAQ.
 
 ## Estrutura
 

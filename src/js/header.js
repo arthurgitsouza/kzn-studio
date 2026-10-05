@@ -71,6 +71,17 @@ export function initHeader() {
     document.body.style.overflow = open ? 'hidden' : '';
     inertTargets.forEach((el) => (open ? el.setAttribute('inert', '') : el.removeAttribute('inert')));
     document.dispatchEvent(new CustomEvent('kzn:lock', { detail: { locked: open } }));
+    if (open) markCurrent();
+  };
+  // Destaca (em vermelho) o item do menu da seção que está no meio da tela
+  const markCurrent = () => {
+    const mid = window.innerHeight * 0.45;
+    sheet.querySelectorAll('.sheet__nav a').forEach((a) => {
+      const r = document.querySelector(a.getAttribute('href'))?.getBoundingClientRect();
+      const here = r && r.top <= mid && r.bottom > mid;
+      if (here) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+    });
   };
   toggle?.addEventListener('click', () => setSheet(!sheet.classList.contains('is-open')));
 
@@ -123,8 +134,8 @@ export function initHeader() {
     metodo: byMenu('menu-explore'),
     case: byMenu('menu-explore'),
     clientes: byMenu('menu-explore'),
-    faq: byMenu('menu-explore'),
     contato: byMenu('menu-explore'),
+    faq: byMenu('menu-explore'),
   };
   if ('IntersectionObserver' in window) {
     const ids = Object.keys(map);

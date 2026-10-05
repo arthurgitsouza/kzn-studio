@@ -35,7 +35,11 @@ Conteúdo vem do PDF do cliente "Landing Page de Conversão Kzn Studio" (hero, s
 - Paleta: preto e vermelho (#e4111d). Fundo majoritariamente preto (decisão do usuário e do cliente em 01/10/2026), alternando dois tons de preto; branco só no cartão do formulário.
 - **Tipografia: Poppins**, única família (a fonte que o cliente usou na capa dele).
 - **Direção visual (decisão do usuário, 01/10/2026):** design **minimalista, limpo e sólido**, no estilo da Nouhau (barra de menu em pílula com efeito vidro, 3 menus suspensos e botão sem setas, títulos discretos, cards limpos) e do site que já fizemos para o Exclusive Car (`C:\dev\exclusive-car`: preto + branco + vermelho, tipografia grande, botões vermelhos em pílula com seta). Botões bonitos e bem acabados.
-- **Proibido:** grão/ruído criado por nós, brilhos borrados, design pesado. Vidro só na barra do menu e nos menus suspensos (pedido do cliente). A foto da capa não leva filtro nenhum por cima.
+- **Proibido:** grão/ruído criado por nós, design pesado. Vidro só na barra do menu e nos menus suspensos (pedido do cliente). Brilho borrado só como os **borrões vermelhos** descritos abaixo. A foto da capa não leva filtro nenhum por cima.
+- **Borrões vermelhos (pedido do cliente, 04/10/2026):** as seções pretas levam borrões vermelhos dispersos nos cantos, no mesmo vermelho do brilho da capa e no estilo dos borrões azuis/lilases da Tinkar. Estáticos, atrás do conteúdo. É exceção deliberada à regra "sem brilho borrado".
+- **Ordem das seções (cliente, 04/10/2026):** o FAQ vem depois do contato, no fim da página.
+- **Animação (cliente, 04/10/2026):** toda seção refaz suas animações a cada visita, descendo ou subindo. Na 2ª seção, 1 s depois de o bloco Atrair/Comunicar/Converter aparecer na tela (o cliente achou 2 s demorado), Atrair, Comunicar e Converter ficam vermelhos um por vez e depois o link "Conheça nossa forma de trabalhar" fica vermelho por um instante; tudo volta ao branco.
+- **Toque no celular:** sem o retângulo azul do navegador ao tocar em botões e links.
 - **A foto da capa do cliente deve aparecer no hero** (decisão do usuário em 01/10/2026, depois de uma versão sem foto). O restante do layout não segue o design da capa dele: segue o estilo limpo da Nouhau e do Exclusive Car.
 - Os cards de serviço **não** mostram uma pessoa por card (desenho rejeitado pelo usuário). Fotos reais, quando existirem, entram como opção do card.
 

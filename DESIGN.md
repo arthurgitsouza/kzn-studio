@@ -185,7 +185,7 @@ Flat by default; depth comes from tonal steps between sections and cards, and 1p
 - **Field focus ring** (`box-shadow: 0 0 0 4px rgba(228,17,29,0.14)`): input focus, with a red border.
 
 ### Named Rules
-**The Solid Surface Rule.** No gradient fills, blur, glass or texture, with one deliberate exception: the top nav bar and its dropdown menus are frosted glass (translucent with a backdrop blur), which the client asked for. The only gradient in the CSS is a scrim over an optional service photo. The one photograph on the page is the client's cover in the hero, used exactly as the client sent it (byte for byte, no denoising or sharpening) with no filter or veil on top.
+**The Solid Surface Rule.** No gradient fills, blur, glass or texture, with two deliberate exceptions the client asked for: the top nav bar and its dropdown menus are frosted glass (translucent with a backdrop blur), and every black section carries two soft, dispersed red glows (large radial gradients in the brand red at the corners, alternating sides, static, behind the content, echoing the red edge glow of the cover photo and the blurred blobs on the Tinkar site). The only gradient in the CSS is a scrim over an optional service photo. The one photograph on the page is the client's cover in the hero, used exactly as the client sent it (byte for byte, no denoising or sharpening) with no filter or veil on top.
 
 ## Shapes
 
@@ -212,13 +212,25 @@ Pills for anything you press (buttons, chips, nav bar, nav links, skip link); 24
 - **Chips:** pill 40px, 1px border; several can be selected (checkboxes); selected fills red with white text and a check mark. "Ainda não sei exatamente" is exclusive with the others.
 
 ### Navigation
-Floating frosted-glass pill bar 66px tall, 14px from the top: 46% Deep Black with an 18px backdrop blur and a 16% white hairline (56% once scrolled); it falls back to solid Deep Black without backdrop-filter support or with reduced transparency. The dropdown menus use the same glass. Links are 500 weight 0.92rem pills that gain a 9% white fill on hover or current. Three dropdown menus (22px radius) carry a red icon and a two-line item. The logo shows only KZN (also on phones and tablets) and opens to the full wordmark on hover at 1100px and up with a mouse. Below 1100px a circular toggle opens a full-screen black sheet with 1.35rem links.
+Floating frosted-glass pill bar 66px tall, 14px from the top: 46% Deep Black with an 18px backdrop blur and a 16% white hairline (56% once scrolled); it falls back to solid Deep Black without backdrop-filter support or with reduced transparency. The dropdown menus use the same glass. Links are 500 weight 0.92rem pills that gain a 9% white fill on hover or current. Three dropdown menus (22px radius) carry a red icon and a two-line item. The logo shows only KZN (also on phones and tablets) and opens to the full wordmark on hover at 1100px and up with a mouse. Below 1100px a circular toggle opens the mobile sheet (Tinkar-style): full screen, frosted glass with a 36px backdrop blur under an 82% Deep Black tint so the page only shows as a faint smear, plus two red radial glows (top right and bottom left) and a faint grey one in the middle. Four short links (Serviços, Como trabalhamos, Case KZN, Dúvidas) in 600 weight Poppins, 1.5rem to 2.05rem, with hairline dividers and a thin right arrow; the link for the section on screen turns accent red. They rise in one after another, then the red pill CTA ("Quero estruturar meu marketing") sits at the bottom above a small uppercase tag. Capped to 640px wide on tablets; solid fallback without backdrop-filter or with reduced transparency.
 
 ### Hero Curtain
-The hero is the client's cover photo filling the whole screen (100svh) and is `position: sticky` at the top; the next section scrolls up over it like a curtain, with a 32px rounded top edge and a 1px white hairline at 16%. While it is covered the photo scales to 1.12, the content moves up 7% and fades to 25%, and a black shade rises to 78% (scroll-driven, transform and opacity only). Two CTAs sit under the lead: the red pill with an arrow chip ("Quero estruturar meu marketing") and an outlined pill with a down-arrow chip ("Saiba mais") that scrolls the second screen flush to the top. On phones the two buttons stack at the same width; below 560px of viewport height the hero stops being sticky so nothing is cut.
+The hero is the client's cover photo filling the whole screen (100svh) and is `position: sticky` at the top; the next section scrolls up over it like a curtain, with a 32px rounded top edge and a 1px white hairline at 16%. While it is covered the photo scales to 1.12, the content moves up 7% and fades to 25%, and a black shade rises to 78% (scroll-driven, transform and opacity only). Two CTAs sit under the lead, both flat pills with no icon: the red one ("Quero estruturar meu marketing") and an outlined one ("Saiba mais") that scrolls the second screen flush to the top. On phones the two buttons stack at the same width; below 560px of viewport height the hero stops being sticky so nothing is cut.
 
 ### FAQ
-Hairline-ruled rows, 76px minimum, a 38px circular marker that fills red and rotates 135deg when open; answers expand via grid-template-rows.
+The last section of the page, after the contact. Hairline-ruled rows, 76px minimum, a 38px circular marker that fills red and rotates 135deg when open; answers expand via grid-template-rows.
+
+### Feature List (Criatividade)
+A minimal list, not cards: 58px rows separated by 1px hairlines, a bare red outline icon (no tile, no fill, no radius) and a 500 weight label. One column on phones and on desktop, two columns between 560px and 1023px. Hover (mouse only) turns the row's top hairline red and nudges the icon 4px.
+
+### Section Glows
+Each `.section` has a `::before` and a `::after` radial blob (`closest-side`, brand red at 40% and 30% fading to transparent, 1050px and 860px wide) placed past the corners and alternating left and right by section order. They sit at z-index -1 under the content, never animate, and the section clips them (`overflow: clip`). Text keeps AA contrast over them.
+
+### Replayed Motion
+Every scroll animation replays each time the visitor reaches a section, going down or coming back up: headings and blocks reset once they are fully out of view and play again on re-entry. Elements inside `position: sticky` containers are reset by their section (and the hero by returning to the top), so nothing vanishes while still visible. The second section runs a timed colour sequence: 1s after the Atrair/Comunicar/Converter block appears on screen (the trigger is the block itself, not the section), Atrair, Comunicar and Converter turn accent red one at a time (1.7s each, 0.6s colour fade), then the "Conheça nossa forma de trabalhar" link turns red for 1.5s and everything returns to white. Leaving the section cancels it; re-entering restarts it. Timings live in `SEQ` at the top of `src/js/motion.js`.
+
+### Touch
+The browser tap highlight (the blue rectangle on phones) is disabled everywhere. Buttons, links and cards do not select text or open the long-press callout, and `touch-action: manipulation` removes the double-tap delay.
 
 ## Do's and Don'ts
 
@@ -230,7 +242,7 @@ Hairline-ruled rows, 76px minimum, a 38px circular marker that fills red and rot
 - **Do** animate transform and opacity only, and keep a no-JS and reduced-motion fallback.
 
 ### Don't:
-- **Don't** add gradients, grain, glass, blur or colored glow; the earlier glass-red, noir-lines and photo-table directions were rejected and are not part of this system.
+- **Don't** add gradients, grain, glass, blur or glow beyond the two sanctioned exceptions (the nav glass and the section red glows); the earlier glass-red, noir-lines and photo-table directions were rejected and are not part of this system.
 - **Don't** introduce a second typeface or a second accent color.
 - **Don't** use #e4111d for small text; use the on-dark or on-light text reds.
 - **Don't** use Japanese characters anywhere in the KZN site.
