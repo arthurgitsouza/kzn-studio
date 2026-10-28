@@ -38,9 +38,9 @@ export async function initMotion({ ready }) {
   reveals();
   scrubWords();
   method();
-  flow();
   counters();
   subheroColors();
+  svcLive();
 
   if (window.matchMedia(FINE).matches) magnetic();
 
@@ -183,27 +183,14 @@ function scrubWords() {
   });
 }
 
-/* Método: cada passo acende (linha vermelha e verbo) ao chegar nele e apaga ao sair de vista */
+/* Processo e solução: cada passo acende (linha vermelha, número e título) ao chegar nele e apaga ao sair de vista */
 function method() {
-  document.querySelectorAll('.step').forEach((step) => {
+  document.querySelectorAll('.step, .op').forEach((step) => {
     replayOn(step, {
       start: 'top 78%',
       play: () => step.classList.add('is-on'),
       reset: () => step.classList.remove('is-on'),
     });
-  });
-}
-
-/* "Antes da mídia": cada item é marcado em sequência (acompanha o scroll nos dois sentidos) */
-function flow() {
-  const el = document.getElementById('flow');
-  if (!el) return;
-  const nodes = [...el.querySelectorAll('.flow__node')];
-  ScrollTrigger.create({
-    trigger: el,
-    start: 'top 70%',
-    end: 'bottom 58%',
-    onUpdate: (s) => nodes.forEach((n, i) => n.classList.toggle('is-on', s.progress >= (i / nodes.length) * 0.92 && s.progress > 0)),
   });
 }
 
@@ -213,6 +200,8 @@ function counters() {
     const end = parseFloat(el.dataset.count);
     if (Number.isNaN(end)) return;
     const { prefix = '', suffix = '' } = el.dataset;
+    const dec = Number(el.dataset.decimals || 0);
+    const fmt = (v) => v.toLocaleString('pt-BR', { minimumFractionDigits: dec, maximumFractionDigits: dec });
     const o = { v: 0 };
     let tween;
     const play = () => {
@@ -222,7 +211,7 @@ function counters() {
         v: end,
         duration: 1.8,
         ease: 'power2.out',
-        onUpdate: () => (el.textContent = prefix + Math.round(o.v).toLocaleString('pt-BR') + suffix),
+        onUpdate: () => (el.textContent = prefix + fmt(dec ? o.v : Math.round(o.v)) + suffix),
       });
     };
     ScrollTrigger.create({ trigger: el, start: 'top 90%', onEnter: play, onEnterBack: play });
@@ -262,6 +251,49 @@ function subheroColors() {
   };
 
   ScrollTrigger.create({ trigger, start: 'top 88%', end: 'bottom 12%', onEnter: play, onEnterBack: play, onLeave: clear, onLeaveBack: clear });
+}
+
+/* Cards de serviço no toque (celular/tablet, sem hover): o card que está na tela ganha o anel vermelho girando na borda do
+   painel de texto (.is-live) e a seta vira e fica vermelha UMA vez (.is-hit) quando cada card é visto, inclusive ao arrastar
+   de lado. Ao sair da seção tudo reinicia, e ao voltar a animação se refaz. No desktop com mouse quem manda é o :hover (CSS). */
+function svcLive() {
+  const grid = document.querySelector('.svc-grid');
+  if (!grid) return;
+  const cards = [...grid.querySelectorAll('.svc')];
+  const touch = window.matchMedia(`(hover: none), (max-width: 639px)`);
+  const seen = new Set();
+
+  const clear = () => {
+    seen.clear();
+    cards.forEach((c) => c.classList.remove('is-live', 'is-hit'));
+  };
+
+  // card "ativo" = pelo menos 60% dele visível na tela (conta o recorte da fileira que rola de lado)
+  const io = new IntersectionObserver(
+    (entries) => {
+      if (!touch.matches) return;
+      entries.forEach((e) => {
+        const on = e.isIntersecting && e.intersectionRatio >= 0.6;
+        e.target.classList.toggle('is-live', on);
+        if (on && !seen.has(e.target)) {
+          seen.add(e.target);
+          e.target.classList.add('is-hit');
+        }
+      });
+    },
+    { threshold: [0, 0.6, 1] },
+  );
+  cards.forEach((c) => io.observe(c));
+
+  // saiu da seção por completo: reinicia (a seta volta ao normal fora da vista e vira de novo na próxima visita)
+  new IntersectionObserver(
+    (entries) => entries.forEach((e) => !e.isIntersecting && clear()),
+    { threshold: 0 },
+  ).observe(grid);
+
+  touch.addEventListener('change', () => {
+    if (!touch.matches) clear();
+  });
 }
 
 /* Botões magnéticos (desktop com mouse) */

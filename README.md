@@ -17,7 +17,7 @@ npm run icons      # regenera o sprite de ícones (src/assets/icons.svg) a parti
 | O quê | Onde |
 |---|---|
 | WhatsApp, Instagram, e-mail, portfólio, domínio, GTM/GA4/Pixel | `src/config.js` (único lugar; o HTML usa `data-wa`, `data-ig`, `data-mail`, `data-portfolio`) |
-| Textos, FAQ, passos do método | `index.html` (seção por seção, comentada) |
+| Textos, FAQ, etapas da solução e do processo | `index.html` (seção por seção, comentada) |
 | Números do case | `index.html` → `.metric__val` (`XX mil+`). Para contagem animada use `data-count="120" data-suffix=" mil+"` |
 | Logos de clientes e depoimentos | `index.html` → `.logos` e `.quotes` (hoje são blocos de exemplo marcados) |
 | Canais do contato (WhatsApp, Instagram, e-mail) | `src/config.js`: o cartão do canal sem link configurado some sozinho |
@@ -25,7 +25,7 @@ npm run icons      # regenera o sprite de ícones (src/assets/icons.svg) a parti
 | Logos | `public/brand/` |
 | Imagem de compartilhamento (WhatsApp/LinkedIn) | `public/og.jpg` (1200×630) |
 
-**Fotos:** a foto da capa do cliente fica em `public/hero/` (3 tamanhos, já com redução de ruído; o arquivo original dele tem grão, então **peça o original em alta definição** para trocar: basta sobrescrever `cover-1920.webp`, `cover-1280.webp` e `cover-800.webp`). O resto do site funciona sem fotos. Cada card de serviço é vertical **9:16** (o tamanho do vídeo do Exclusive Car: até ~380 px de largura, ~667 px de altura em monitor grande) e já tem espaço para uma foto HD em **retrato 1080×1920**: coloque `<img class="svc__photo" src="..." alt="..." />` dentro do `<a class="svc">` e a foto cobre o card inteiro (um véu escuro garante a leitura do título e do texto). Sem foto, o card mostra o ícone do serviço. Depois marque `teamPhotosReady: true` em `src/config.js`.
+**Fotos:** a foto da capa do cliente fica em `public/hero/` (o arquivo original é `cover-1920.webp`; o de 1280 px é uma redução). Os **cards de serviço** usam as fotos recortadas dos membros em `public/team/` (WebP com fundo transparente: `kaua`, `rian`, `flaesio`, `paulinho`, `arthur`) e os ícones das ferramentas em `public/tools/` (PNG de 47 px do cliente). Para trocar uma foto, sobrescreva o arquivo com o mesmo nome (mantenha o fundo transparente e o corte na cintura). **No celular** (tela até 639 px) o card fica mais alto que 9:16 para o palco ter a mesma proporção do desktop; se mudar um valor em px das variáveis de posição, repita o equivalente em `cqw` no bloco `@media (max-width: 639px)` logo abaixo (a conta está no comentário). No toque, a borda do texto gira no card que está na tela e a seta vira uma vez por visita (`svcLive()` em `src/js/motion.js`). **Para mexer na posição (x e y) e no tamanho dos membros e dos ícones**, edite o bloco comentado "POSIÇÃO DOS MEMBROS E DOS ÍCONES" em `src/styles/sections.css` (variáveis `--right`, `--bottom`, `--h`, e `--back-*`/`--front-*` no Design & Criativos). A luz vermelha atrás de cada membro é CSS (`.svc__stage::before` em `src/styles/sections.css`), não faz parte da foto. As fotos entregues são pequenas (290–370 px de largura; só a do Rian é grande): para telas de alta densidade vale pedir os originais em tamanho maior.
 
 **Blocos de exemplo:** logos, depoimentos e números do case aparecem com a etiqueta "Exemplo" enquanto `showPlaceholders: true`. Sem material real na hora de publicar, ponha `showPlaceholders: false` e eles somem.
 
@@ -48,12 +48,15 @@ Os caminhos são relativos (`base: './'`), então funciona em domínio próprio 
 - Só `transform` e `opacity` são animados; efeitos de mouse (botões magnéticos) só em `hover: hover`.
 - `prefers-reduced-motion`: sem Lenis, sem GSAP, sem preloader, tudo visível de imediato (o módulo de movimento nem é baixado).
 - O logo do menu mostra só **KZN** (também no celular) e, no desktop com mouse, abre completo ("MARKETING STUDIO") ao passar o mouse; abre sozinho uma vez ao entrar.
-- A **capa é tela cheia e fica presa no topo** (`position: sticky`): a segunda seção sobe por cima dela. O efeito é conduzido pelo scroll em `heroCurtain()` (`src/js/motion.js`). O botão "Saiba mais" usa `data-offset="0"` para encostar a segunda tela no topo.
+- A **capa é tela cheia e fica presa no topo** (`position: sticky`): a segunda seção sobe por cima dela. O efeito é conduzido pelo scroll em `heroCurtain()` (`src/js/motion.js`). O botão "Ver nossos resultados" usa `data-offset="0"` para encostar o case no topo.
 - **Toda animação de seção se refaz** a cada visita, descendo ou subindo (`reveals()` em `src/js/motion.js`). A sequência de cores da 2ª seção (Atrair → Comunicar → Converter → link) usa os tempos do objeto `SEQ` no topo desse arquivo: `delay` (espera, hoje 1 s depois que o bloco aparece na tela), `step` (tempo de cada palavra), `linkGap` e `linkHold`.
 - **Borrões vermelhos** nas seções pretas: `.section::before` e `::after` em `src/styles/sections.css` (tamanho, posição e intensidade).
 - **Menu do celular** (`.sheet` em `src/styles/components.css`, marcação em `index.html`, destaque da seção atual em `src/js/header.js`): vidro com desfoque forte, borrões vermelhos e 4 itens. Para trocar os itens, edite a lista `.sheet__nav` no `index.html`.
 - **Sem o azul do toque no celular:** `-webkit-tap-highlight-color` transparente em `src/styles/tokens.css`.
-- **Ordem da página:** capa, 2ª tela, serviços, estratégia, criatividade, método, case, clientes, contato, FAQ.
+- **Ordem da página** (documento "ANÁLISE LP KZN STUDIO", 28/10/2026): capa, prova imediata (`#prova`), autoridade (`#operacao`), dor (`#problema`), solução (`#solucao`), serviços, case, processo (`#processo`), clientes, formulário (`#contato`), FAQ.
+- **Números do case:** em `index.html`, seção `#case` (`data-count`, `data-prefix`, `data-suffix`, `data-decimals`). Os da prova imediata (`#prova`) ainda são exemplo: troque o texto e apague a etiqueta `tag-ph` e o `data-pending` de cada um.
+- **Peças e vídeo do case:** cada espaço da galeria tem um comentário no HTML com o `<img>` para colocar no lugar do tile de exemplo (arquivos em `public/case/`). O vídeo entra em `src/config.js` → `caseVideo: '/case/arquivo.mp4'` (o tile vira um player, só carrega no clique).
+- **Formulário em 2 etapas:** `src/js/form.js` (`STEP_CHECKS` define os campos de cada etapa). Os valores das opções são os mesmos do `data-service` dos cards de serviço.
 
 ## Estrutura
 

@@ -1,4 +1,4 @@
-// Barra de menu da capa: três menus suspensos, menu móvel, scroll-spy e estado "rolou".
+// Barra de menu da capa: quatro itens (Resultados, Como trabalhamos, Serviços, Entre em contato), menu móvel, scroll-spy e estado "rolou".
 // O logo recolhe/abre por CSS (.is-scrolled) e no hover; aqui só mantemos o estado.
 const FINE = '(hover: hover) and (pointer: fine)';
 
@@ -24,43 +24,6 @@ export function initHeader() {
   };
   window.addEventListener('scroll', onScroll, { passive: true });
   onScroll();
-
-  /* ── menus suspensos (um aberto por vez) ── */
-  const items = [...nav.querySelectorAll('.has-menu')].map((li) => ({
-    li,
-    btn: li.querySelector('.nav__link--btn'),
-    menu: li.querySelector('.menu'),
-    timer: 0,
-  }));
-  const setMenu = (it, open) => {
-    it.menu.classList.toggle('is-open', open);
-    it.btn.setAttribute('aria-expanded', String(open));
-  };
-  const closeAll = (except) => items.forEach((it) => it !== except && setMenu(it, false));
-
-  items.forEach((it) => {
-    it.btn.addEventListener('click', () => {
-      const open = it.btn.getAttribute('aria-expanded') !== 'true';
-      closeAll(it);
-      setMenu(it, open);
-    });
-    if (window.matchMedia(FINE).matches) {
-      it.li.addEventListener('pointerenter', () => {
-        clearTimeout(it.timer);
-        closeAll(it);
-        setMenu(it, true);
-      });
-      it.li.addEventListener('pointerleave', () => {
-        it.timer = setTimeout(() => setMenu(it, false), 160);
-      });
-    }
-    it.li.addEventListener('focusout', (e) => {
-      if (!it.li.contains(e.relatedTarget)) setMenu(it, false);
-    });
-  });
-  document.addEventListener('pointerdown', (e) => {
-    items.forEach((it) => !it.li.contains(e.target) && setMenu(it, false));
-  });
 
   /* ── menu móvel ── */
   const setSheet = (open) => {
@@ -112,30 +75,21 @@ export function initHeader() {
       setSheet(false);
       toggle.focus();
     }
-    const open = items.find((it) => it.menu.classList.contains('is-open'));
-    if (open) {
-      setMenu(open, false);
-      open.btn.focus();
-    }
   });
   document.addEventListener('kzn:close-menus', () => {
-    closeAll();
     if (sheet?.classList.contains('is-open')) setSheet(false);
   });
   window.matchMedia('(min-width: 1100px)').addEventListener('change', (e) => {
     if (e.matches && sheet?.classList.contains('is-open')) setSheet(false);
   });
 
-  /* ── scroll-spy: o menu que contém a seção atual fica sublinhado ── */
-  const byMenu = (id) => items.find((it) => it.btn.getAttribute('aria-controls') === id)?.btn;
+  /* ── scroll-spy: o item da barra que leva à seção atual fica destacado ── */
+  const link = (id) => nav.querySelector(`.nav__links a[href="#${id}"], .nav__cta[href="#${id}"]`);
   const map = {
-    estrategia: byMenu('menu-plan'),
-    criatividade: byMenu('menu-sites'),
-    metodo: byMenu('menu-explore'),
-    case: byMenu('menu-explore'),
-    clientes: byMenu('menu-explore'),
-    contato: byMenu('menu-explore'),
-    faq: byMenu('menu-explore'),
+    case: link('case'),
+    processo: link('processo'),
+    servicos: link('servicos'),
+    contato: link('contato'),
   };
   if ('IntersectionObserver' in window) {
     const ids = Object.keys(map);
@@ -153,8 +107,8 @@ export function initHeader() {
       { rootMargin: '-45% 0px -50% 0px' },
     );
     ids.forEach((id) => {
-      const s = document.getElementById(id);
-      if (s) io.observe(s);
+      const sec = document.getElementById(id);
+      if (sec) io.observe(sec);
     });
   }
 

@@ -25,11 +25,10 @@ export function buildMessage(data) {
     `*WhatsApp:* ${data.whatsapp}`,
     `*Instagram/site:* ${data.perfil || 'não informado'}`,
     '',
-    '*O que procuro:*',
+    '*O que quero melhorar primeiro:*',
     ...procura.map((item) => `• ${item}`),
     '',
     `*Faturamento médio mensal:* ${data.faturamento}`,
-    `*Investimento mensal em marketing:* ${data.investimento}`,
   ];
   if (utm.length) lines.push('', `_Origem: ${utm.join(', ')}_`);
   return lines.join('\n');
@@ -88,11 +87,30 @@ export function initForm(config) {
       const ok = !!form.elements.faturamento.value;
       return setError(fieldOf(form.elements.faturamento), 'e-fat', ok ? '' : 'Escolha uma faixa de faturamento.');
     },
-    investimento: () => {
-      const ok = !!form.elements.investimento.value;
-      return setError(fieldOf(form.elements.investimento), 'e-inv', ok ? '' : 'Escolha uma faixa de investimento.');
-    },
   };
+  const STEP_CHECKS = { 1: ['nome', 'empresa', 'whatsapp'], 2: ['procura', 'faturamento'] };
+
+  /* ── duas etapas: 1) sobre você, 2) sobre o momento ── */
+  const steps = [...form.querySelectorAll('.form__step')];
+  const bars = [...form.querySelectorAll('.form__bar')];
+  const stepName = document.getElementById('step-name');
+  const NAMES = { 1: 'Etapa 1 de 2 · Sobre você', 2: 'Etapa 2 de 2 · Sobre o momento' };
+  let current = 1;
+  const goTo = (n, { focus = true } = {}) => {
+    current = n;
+    steps.forEach((el) => (el.hidden = Number(el.dataset.step) !== n));
+    bars.forEach((el, i) => el.classList.toggle('is-on', i < n));
+    if (stepName) stepName.textContent = NAMES[n];
+    if (focus) {
+      const first = steps[n - 1].querySelector('input:not([type="checkbox"]), select, input');
+      first?.focus({ preventScroll: true });
+      const r = form.getBoundingClientRect();
+      if (r.top < 80 || r.bottom > innerHeight) form.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    }
+  };
+  const validate = (n) => STEP_CHECKS[n].map((k) => checks[k]()).every(Boolean);
+  form.querySelector('[data-next]')?.addEventListener('click', () => validate(1) && goTo(2));
+  form.querySelector('[data-back]')?.addEventListener('click', () => goTo(1));
 
   // Campo que já está com erro revalida sozinho enquanto o usuário corrige
   const revalidate = (e) => {
@@ -104,10 +122,16 @@ export function initForm(config) {
 
   form.addEventListener('submit', (e) => {
     e.preventDefault();
-    const results = Object.values(checks).map((c) => c());
-    if (results.includes(false)) {
+    // Enter na etapa 1 avança em vez de enviar
+    if (current === 1) {
+      if (validate(1)) goTo(2);
+      return;
+    }
+    const ok = validate(1) && validate(2);
+    if (!ok) {
+      if (!validate(1)) goTo(1, { focus: false });
       const bad = form.querySelector('.has-error');
-      (bad.querySelector('input, select') || bad).focus?.();
+      (bad.querySelector('input, select') || bad).focus?.({ preventScroll: true });
       bad.scrollIntoView({ block: 'center', behavior: 'smooth' });
       return;
     }

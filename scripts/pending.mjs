@@ -17,11 +17,13 @@ if (!config.email) add('E-mail não informado', 'src/config.js → email');
 if (!config.portfolio) add('Link do portfólio não informado', 'src/config.js → portfolio');
 if (/\.example/.test(config.siteUrl)) add('Domínio final (canonical, Open Graph, JSON-LD)', 'src/config.js → siteUrl');
 if (!config.tracking.gtmId && !config.tracking.ga4Id && !config.tracking.metaPixelId) add('Nenhum ID de rastreamento (GTM/GA4/Pixel)', 'src/config.js → tracking');
-if (!config.teamPhotosReady) add('Fotos em alta definição dos responsáveis por cada serviço (opcional; os cards funcionam sem foto)', 'index.html (.svc) + teamPhotosReady: true');
+if (!config.teamPhotosHiRes) add('Fotos dos membros em maior resolução (as entregues têm 290–370 px de largura, exceto a do Rian; pedir os originais para telas de alta densidade)', 'public/team/*.webp + teamPhotosHiRes: true');
+
+add('Nova imagem da capa (o cliente avisou que vai enviar; a atual recebeu um escurecimento leve por CSS)', 'public/hero/cover-1920.webp e cover-1280.webp');
 
 [...html.matchAll(/data-pending="([^"]+)"/g)]
   .map((m) => m[1])
-  .filter((v, i, a) => a.indexOf(v) === i && !/^Foto do respons/.test(v))
+  .filter((v, i, a) => a.indexOf(v) === i && !/^Foto do respons/.test(v) && !(config.caseVideo && /vídeo de explicação/.test(v)))
   .forEach((v) => add(v, 'index.html'));
 
 console.log('\n┌─ PENDÊNCIAS ANTES DE PUBLICAR ' + '─'.repeat(30));

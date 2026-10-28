@@ -30,6 +30,12 @@ export const config = {
   // false = esconde tudo que ainda é placeholder (use quando for publicar sem esse material).
   showPlaceholders: true,
 
-  // Fotos HD dos responsáveis (opcional): ponha <img class="svc__photo"> dentro do card e marque true (só afeta o aviso do build).
-  teamPhotosReady: false,
+  // Vídeo de explicação do case (Sessão 7). Coloque o arquivo em public/case/ e o caminho aqui, ex.: '/case/explicacao.mp4'.
+  // Vazio = o tile mostra o aviso "Exemplo" e a pendência aparece na lista do build.
+  caseVideo: '',
+
+  // Fotos dos membros nos cards de serviço: entregues pelo cliente em 16/10/2026 (public/team e public/tools).
+  // As fotos são pequenas (290–370 px de largura; só a do Rian é grande). Quando chegarem os originais em tamanho maior,
+  // sobrescreva os arquivos de public/team (WebP com fundo transparente) e marque true (só afeta o aviso do build).
+  teamPhotosHiRes: false,
 };

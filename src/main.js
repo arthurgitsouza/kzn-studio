@@ -16,6 +16,7 @@ import { initHeader } from './js/header.js';
 import { initFaq } from './js/faq.js';
 import { initForm } from './js/form.js';
 import { initAnchors } from './js/anchors.js';
+import { initCaseVideo } from './js/media.js';
 
 const root = document.documentElement;
 const motion = root.classList.contains('motion'); // definido no <head>: false se prefers-reduced-motion
@@ -25,6 +26,7 @@ initHeader();
 initFaq();
 initForm(config);
 initAnchors();
+initCaseVideo(config);
 
 if (motion) {
   splitHeadings();
