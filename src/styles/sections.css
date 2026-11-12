@@ -583,12 +583,43 @@
     font: 500 0.88rem / 1.35 var(--f);
     color: var(--fg);
   }
+  .prova__note {
+    position: relative;
+  }
   .prova__note::before {
     content: '';
     flex: none;
     width: 7px;
     height: 7px;
     background: var(--red);
+    animation: note-dot 1.8s ease-in-out infinite;
+  }
+  /* arco vermelho/branco correndo pela borda da pílula (o mesmo anel do formulário) */
+  .prova__note::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    padding: 1.5px;
+    border-radius: inherit;
+    pointer-events: none;
+    background: conic-gradient(from var(--ring), rgba(255, 70, 81, 0) 0%, rgba(255, 70, 81, 0) 55%, #e4111d 82%, #fff 96%, rgba(255, 70, 81, 0) 100%);
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    mask-composite: exclude;
+    animation: ring 4s linear infinite;
+  }
+  @keyframes note-dot {
+    50% {
+      opacity: 0.35;
+      transform: scale(0.7);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .prova__note::before,
+    .prova__note::after {
+      animation: none;
+    }
   }
   .prova__close {
     max-width: 34em;
