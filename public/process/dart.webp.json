@@ -1,0 +1,4 @@
+{
+  "prompt": "Alvo com dardo: imagem enviada pelo cliente em 12/11/2026 (alvo azul e branco em 3D, fundo transparente), recolorida por codigo (matiz azul para vermelho, aneis claros para grafite, dardo claro) e separada em duas camadas, alvo (target.webp, com o buraco do dardo preenchido por inpainting) e dardo (dart.webp), para animar o dardo cravando. Recorte e resize com Pillow/OpenCV, sem geracao por IA.\n",
+  "createdAt": "2026-11-12T19:00:38.868Z"
+}

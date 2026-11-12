@@ -225,6 +225,9 @@ Right after the hero (it is the section that slides over the cover). Compact: he
 ### Pain and Solution (Sessões 4 and 5)
 Pain: heading on the left (sticky from 1024px), four hairline rows on the right (red number, 600 title, muted text) whose top hairline turns red on hover, and a closing line. Solution: centered heading and lead, then four numbered steps joined by a line with arrowheads (horizontal from 900px, vertical on phones): each circle, title and connecting line lights red in turn when it enters view and resets when it leaves; closing line plus a text link to the services.
 
+### Dart Target (Process)
+To the right of the process heading (below the text on phones, 78% wide up to 340px): the client's 3D target image recoloured by code (blue to red, light rings to graphite, white only on the dart and highlights) and split into two transparent WebP layers in `public/process/` (`target.webp` with the dart hole inpainted, `dart.webp`). On entry (`.is-on`, replayed on every visit): the target fades and scales in, the dart flies in along its own axis (1.55s, accelerating), sticks at the bullseye, recoils and quivers; the target recoils 3.5% and a red then a white ellipse ripple leaves the impact point; afterwards a slow 8px float. Hidden before entry, static with reduced motion or the failsafe. Impact point is `--hit-x/--hit-y` in `.process__art`.
+
 ### Process (Sessão 8)
 A timeline of four smaller numbered steps (34px circles, a 2px line that fills red): horizontal from 900px, a vertical rail on phones; same replayed `.is-on` mechanism as the solution (`method()` in `motion.js`).
 

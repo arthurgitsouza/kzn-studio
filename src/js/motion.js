@@ -185,7 +185,7 @@ function scrubWords() {
 
 /* Processo e solução: cada passo acende (linha vermelha, número e título) ao chegar nele e apaga ao sair de vista */
 function method() {
-  document.querySelectorAll('.step, .op').forEach((step) => {
+  document.querySelectorAll('.step, .op, .process__art').forEach((step) => {
     replayOn(step, {
       start: 'top 78%',
       play: () => step.classList.add('is-on'),

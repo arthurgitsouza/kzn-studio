@@ -56,6 +56,8 @@ Os caminhos são relativos (`base: './'`), então funciona em domínio próprio 
 - **Ordem da página** (documento "ANÁLISE LP KZN STUDIO", 28/10/2026): capa, prova imediata (`#prova`), autoridade (`#operacao`), dor (`#problema`), solução (`#solucao`), serviços, case, processo (`#processo`), clientes, formulário (`#contato`), FAQ.
 - **Números do case:** em `index.html`, seção `#case` (`data-count`, `data-prefix`, `data-suffix`, `data-decimals`). Os da prova imediata (`#prova`) ainda são exemplo: troque o texto e apague a etiqueta `tag-ph` e o `data-pending` de cada um.
 - **Peças e vídeo do case:** cada espaço da galeria tem um comentário no HTML com o `<img>` para colocar no lugar do tile de exemplo (arquivos em `public/case/`). O vídeo entra em `src/config.js` → `caseVideo: '/case/arquivo.mp4'` (o tile vira um player, só carrega no clique).
+- **Alvo com dardo (processo):** imagens em `public/process/` (camadas separadas) e animação em `.process__art` (`src/styles/sections.css`, keyframes `art-*`); duração e atrasos nas regras `.is-on`. O ponto de impacto é `--hit-x/--hit-y`.
+- **Números da prova imediata:** em `#prova` (`data-count`, `data-prefix`, `data-suffix`, `data-decimals`); a nota do Meta Ads é `.prova__note`.
 - **Formulário em 2 etapas:** `src/js/form.js` (`STEP_CHECKS` define os campos de cada etapa). Os valores das opções são os mesmos do `data-service` dos cards de serviço.
 
 ## Estrutura

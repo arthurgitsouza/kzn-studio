@@ -34,9 +34,9 @@ Conteúdo vem do PDF do cliente "Landing Page de Conversão Kzn Studio" e, desde
 Fluxo: Hero → Prova imediata → "Não fazemos peças soltas. Construímos uma operação." → Dor/problema → Solução KZN → Serviços → Case → Processo → Clientes/depoimentos → Formulário → FAQ. Objetivo da página (tráfego pago): uma decisão só, entender a oferta ou falar com o KZN, por isso poucas rotas de fuga.
 - **Hero:** "Marketing que conecta estratégia, tráfego e criação para sua empresa vender melhor." / "Unimos planejamento, mídia, design e páginas de conversão em uma operação única para transformar investimento em marketing em crescimento." / botões "Quero uma análise do meu marketing" e "Ver nossos resultados ↓" (leva ao case). Fundo um pouco mais escuro; **o cliente vai mandar uma nova imagem da capa**.
 - **Menu:** Resultados (case) | Como trabalhamos (processo) | Serviços | Entre em contato (formulário). Sem submenus.
-- **Prova imediata:** título, subtítulo, 4 indicadores (leads, R$ em mídia, projetos, marcas) e fechamento. Os números reais ainda não chegaram: aparecem como exemplo.
+- **Prova imediata:** título, subtítulo, 4 indicadores e fechamento. Números reais do cliente (12/11/2026): 3,4 mil leads gerados, +R$ 20 mil investidos em mídia, +100 projetos executados, +20 marcas atendidas, com a nota destacada "Dados baseados no ano de 2026, informações do Meta Ads."
 - **Autoridade:** igual, sem o link "Conheça nossa forma de trabalhar".
-- **Dor / Solução / Processo:** textos exatos do PDF (ver `index.html`).
+- **Dor / Solução / Processo:** textos exatos do PDF (ver `index.html`). No Processo, ao lado do título, fica o alvo com dardo (imagem do cliente, recolorida em vermelho, grafite e branco) com animação: o dardo voa e crava no centro, o alvo estremece e uma onda sai do impacto; refaz a cada visita.
 - **Serviços:** headline "As frentes que fazem a operação acontecer."; cards com os membros.
 - **Case:** layout com peças da campanha e vídeo de explicação (arte e vídeo ainda a enviar) + números oficiais: +200 mil impressões, +130 mil visualizações na campanha, +3,7 mil visitas ao perfil, +820 interações.
 - **Removidas:** as seções Estratégia + aquisição, Criatividade + conversão e o antigo "Como trabalhamos" (4 verbos).
