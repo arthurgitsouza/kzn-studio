@@ -38,9 +38,12 @@ Fluxo: Hero → Prova imediata → "Não fazemos peças soltas. Construímos uma
 - **Autoridade:** igual, sem o link "Conheça nossa forma de trabalhar".
 - **Dor / Solução / Processo:** textos exatos do PDF (ver `index.html`). No Processo, ao lado do título, fica o alvo com dardo (imagem do cliente, recolorida em vermelho, grafite e branco) com animação: o dardo voa e crava no centro, o alvo estremece e uma onda sai do impacto; refaz a cada visita.
 - **Serviços:** headline "As frentes que fazem a operação acontecer."; cards com os membros.
-- **Case:** layout com peças da campanha e vídeo de explicação (arte e vídeo ainda a enviar) + números oficiais: +200 mil impressões, +130 mil visualizações na campanha, +3,7 mil visitas ao perfil, +820 interações.
+- **Case:** layout do mockup do cliente (15/11/2026): 3 peças da campanha (duas empilhadas à esquerda) e o tile do vídeo de explicação (MP4 vertical 720x1280, ~10 MB, abre em janela ao clicar) + números oficiais: +200 mil impressões, +130 mil visualizações na campanha, +3,7 mil visitas ao perfil, +820 interações.
 - **Removidas:** as seções Estratégia + aquisição, Criatividade + conversão e o antigo "Como trabalhamos" (4 verbos).
 - **Formulário:** 2 etapas (sobre você / sobre o momento), sem pergunta de investimento, sem cartões de WhatsApp/Instagram/e-mail ao lado (sem CTA duplo).
+- **Rastreamento (cliente, 15/11/2026):** Google Tag Manager GTM-WZGJP24P e Pixel da Meta 1806675590984038, em `src/config.js`; só carregam no site publicado, não no `npm run dev`.
+- **Equipe nos serviços (cliente, 15/11/2026):** os cards viraram a equipe junta (Kauã, Paulo, Rian, Arthur, fotos de `Kzn Studio.zip` em `public/time/`) com a lista das 4 frentes ao lado; passar o mouse (ou tocar) em uma pessoa ou linha separa a pessoa do grupo e mostra nome, frente e ferramentas. Flaesio não faz parte das fotos novas. Backup da versão com cards: `C:\dev\_backups\kzn-pre-time-hover`.
+- **Vídeo do case:** toca ao entrar na seção e pausa ao sair, tentando som (navegadores só liberam som depois do primeiro clique/toque; antes disso toca mudo com o botão "Ativar som").
 - **FAQ:** mantido exatamente como estava (a 3ª pergunta ainda cita "faturamento e investimento", mas o formulário não pergunta mais investimento: avisar o cliente).
 
 ## Brand Commitments

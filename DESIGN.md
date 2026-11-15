@@ -225,6 +225,11 @@ Right after the hero (it is the section that slides over the cover). Compact: he
 ### Pain and Solution (Sessões 4 and 5)
 Pain: heading on the left (sticky from 1024px), four hairline rows on the right (red number, 600 title, muted text) whose top hairline turns red on hover, and a closing line. Solution: centered heading and lead, then four numbered steps joined by a line with arrowheads (horizontal from 900px, vertical on phones): each circle, title and connecting line lights red in turn when it enters view and resets when it leaves; closing line plus a text link to the services.
 
+### Case Gallery
+The whole case section is compact on purpose (client feedback 15/11/2026: everything must be visible together while scrolling past): 88px of section padding instead of 148px, the gallery up to 820px wide in a 1.2 : 0.8 grid with a 2 to 4rem gap, a 3.1rem heading, 112px metric cells and a one-line closing sentence; about 800px tall at 1440 wide, so it fits one screen.
+
+Three columns whose widths follow the real aspect ratio of each artwork (0.40 : 0.713 : 0.812) so all three share one height and nothing is cropped: two small pieces stacked on the left, the "Pronunciamento oficial" piece, and the video cover with a red play button. On hover (mouse) an image grows 7% inside its rounded frame. Clicking the video cover opens a native `<dialog>` (Esc, the close button or a click on the dark backdrop close it; the video pauses; Lenis is locked while it is open) with the 9:16 video at up to 88svh tall.
+
 ### Dart Target (Process)
 To the right of the process heading (below the text on phones, 78% wide up to 340px): the client's 3D target image recoloured by code (blue to red, light rings to graphite, white only on the dart and highlights) and split into two transparent WebP layers in `public/process/` (`target.webp` with the dart hole inpainted, `dart.webp`). On entry (`.is-on`, replayed on every visit): the target fades and scales in, the dart flies in along its own axis (1.55s, accelerating), sticks at the bullseye, recoils and quivers; the target recoils 3.5% and a red then a white ellipse ripple leaves the impact point; afterwards a slow 8px float. Hidden before entry, static with reduced motion or the failsafe. Impact point is `--hit-x/--hit-y` in `.process__art`.
 

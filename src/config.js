@@ -21,9 +21,9 @@ export const config = {
 
   // Rastreamento — deixe vazio para não carregar nada.
   tracking: {
-    gtmId: '', //       GTM-XXXXXXX
+    gtmId: 'GTM-WZGJP24P', //       Google Tag Manager (enviado pelo cliente em 15/11/2026)
     ga4Id: '', //       G-XXXXXXXXXX
-    metaPixelId: '', // 1234567890
+    metaPixelId: '1806675590984038', // Pixel da Meta (enviado pelo cliente em 15/11/2026)
   },
 
   // true  = mostra blocos de exemplo marcados (logos, depoimentos, números do case).
@@ -32,7 +32,8 @@ export const config = {
 
   // Vídeo de explicação do case (Sessão 7). Coloque o arquivo em public/case/ e o caminho aqui, ex.: '/case/explicacao.mp4'.
   // Vazio = o tile mostra o aviso "Exemplo" e a pendência aparece na lista do build.
-  caseVideo: '',
+  caseVideo: '/case/explicacao.mp4', //            qualidade (720x1280), abre em "Ampliar"
+  caseVideoInline: '/case/explicacao-540.mp4', //  leve (540x960), toca sozinho na seção
 
   // Fotos dos membros nos cards de serviço: entregues pelo cliente em 16/10/2026 (public/team e public/tools).
   // As fotos são pequenas (290–370 px de largura; só a do Rian é grande). Quando chegarem os originais em tamanho maior,

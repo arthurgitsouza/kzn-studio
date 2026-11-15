@@ -17,6 +17,7 @@ import { initFaq } from './js/faq.js';
 import { initForm } from './js/form.js';
 import { initAnchors } from './js/anchors.js';
 import { initCaseVideo } from './js/media.js';
+import { initTeam } from './js/team.js';
 
 const root = document.documentElement;
 const motion = root.classList.contains('motion'); // definido no <head>: false se prefers-reduced-motion
@@ -27,6 +28,7 @@ initFaq();
 initForm(config);
 initAnchors();
 initCaseVideo(config);
+initTeam();
 
 if (motion) {
   splitHeadings();

@@ -55,10 +55,14 @@ Os caminhos são relativos (`base: './'`), então funciona em domínio próprio 
 - **Sem o azul do toque no celular:** `-webkit-tap-highlight-color` transparente em `src/styles/tokens.css`.
 - **Ordem da página** (documento "ANÁLISE LP KZN STUDIO", 28/10/2026): capa, prova imediata (`#prova`), autoridade (`#operacao`), dor (`#problema`), solução (`#solucao`), serviços, case, processo (`#processo`), clientes, formulário (`#contato`), FAQ.
 - **Números do case:** em `index.html`, seção `#case` (`data-count`, `data-prefix`, `data-suffix`, `data-decimals`). Os da prova imediata (`#prova`) ainda são exemplo: troque o texto e apague a etiqueta `tag-ph` e o `data-pending` de cada um.
-- **Peças e vídeo do case:** cada espaço da galeria tem um comentário no HTML com o `<img>` para colocar no lugar do tile de exemplo (arquivos em `public/case/`). O vídeo entra em `src/config.js` → `caseVideo: '/case/arquivo.mp4'` (o tile vira um player, só carrega no clique).
+- **Peças e vídeo do case:** arquivos em `public/case/` (`peca-1..3.webp`, `video-capa.webp`, `explicacao.mp4`). Para trocar, sobrescreva o arquivo com o mesmo nome (mantenha as proporções das artes, que definem a largura das colunas em `.case__gallery`). O vídeo é `src/config.js` → `caseVideo`; comprimir um novo: `ffmpeg -i original.mov -vf scale=720:1280 -c:v libx264 -crf 25 -pix_fmt yuv420p -movflags +faststart -c:a aac -b:a 112k explicacao.mp4`.
+- **Rastreamento:** `src/config.js` → `tracking` (GTM e Pixel já preenchidos); só roda no site publicado.
 - **Alvo com dardo (processo):** imagens em `public/process/` (camadas separadas) e animação em `.process__art` (`src/styles/sections.css`, keyframes `art-*`); duração e atrasos nas regras `.is-on`. O ponto de impacto é `--hit-x/--hit-y`.
 - **Números da prova imediata:** em `#prova` (`data-count`, `data-prefix`, `data-suffix`, `data-decimals`); a nota do Meta Ads é `.prova__note`.
 - **Formulário em 2 etapas:** `src/js/form.js` (`STEP_CHECKS` define os campos de cada etapa). Os valores das opções são os mesmos do `data-service` dos cards de serviço.
+
+- **Equipe (serviços):** HTML em `#servicos`, visual no bloco "SERVIÇOS: a equipe" de `src/styles/sections.css` (posição de cada pessoa: `--l`, `--w`, `--s`, `--z` em `.member--*`), interação em `src/js/team.js`.
+- **Vídeo do case:** `src/js/media.js`; arquivos `caseVideo` (720p, "Ampliar") e `caseVideoInline` (540p, toca na seção) em `src/config.js`.
 
 ## Estrutura
 

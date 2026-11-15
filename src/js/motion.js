@@ -40,7 +40,6 @@ export async function initMotion({ ready }) {
   method();
   counters();
   subheroColors();
-  svcLive();
 
   if (window.matchMedia(FINE).matches) magnetic();
 
@@ -251,49 +250,6 @@ function subheroColors() {
   };
 
   ScrollTrigger.create({ trigger, start: 'top 88%', end: 'bottom 12%', onEnter: play, onEnterBack: play, onLeave: clear, onLeaveBack: clear });
-}
-
-/* Cards de serviço no toque (celular/tablet, sem hover): o card que está na tela ganha o anel vermelho girando na borda do
-   painel de texto (.is-live) e a seta vira e fica vermelha UMA vez (.is-hit) quando cada card é visto, inclusive ao arrastar
-   de lado. Ao sair da seção tudo reinicia, e ao voltar a animação se refaz. No desktop com mouse quem manda é o :hover (CSS). */
-function svcLive() {
-  const grid = document.querySelector('.svc-grid');
-  if (!grid) return;
-  const cards = [...grid.querySelectorAll('.svc')];
-  const touch = window.matchMedia(`(hover: none), (max-width: 639px)`);
-  const seen = new Set();
-
-  const clear = () => {
-    seen.clear();
-    cards.forEach((c) => c.classList.remove('is-live', 'is-hit'));
-  };
-
-  // card "ativo" = pelo menos 60% dele visível na tela (conta o recorte da fileira que rola de lado)
-  const io = new IntersectionObserver(
-    (entries) => {
-      if (!touch.matches) return;
-      entries.forEach((e) => {
-        const on = e.isIntersecting && e.intersectionRatio >= 0.6;
-        e.target.classList.toggle('is-live', on);
-        if (on && !seen.has(e.target)) {
-          seen.add(e.target);
-          e.target.classList.add('is-hit');
-        }
-      });
-    },
-    { threshold: [0, 0.6, 1] },
-  );
-  cards.forEach((c) => io.observe(c));
-
-  // saiu da seção por completo: reinicia (a seta volta ao normal fora da vista e vira de novo na próxima visita)
-  new IntersectionObserver(
-    (entries) => entries.forEach((e) => !e.isIntersecting && clear()),
-    { threshold: 0 },
-  ).observe(grid);
-
-  touch.addEventListener('change', () => {
-    if (!touch.matches) clear();
-  });
 }
 
 /* Botões magnéticos (desktop com mouse) */

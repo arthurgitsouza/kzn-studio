@@ -247,311 +247,324 @@
     }
   }
 
-  /* ═══════════ SERVIÇOS ═══════════
-     Cards verticais 9:16 (o tamanho do vídeo do Exclusive Car, até ~380px de largura) numa área mais larga.
-     Cada card é um palco: título e seta em cima, o membro do time recortado sobre uma luz vermelha,
-     os ícones das ferramentas ao lado (design do cliente) e o texto num painel escuro embaixo. */
-  .container--wide {
-    width: min(1560px, 100% - 2 * var(--gutter));
-    margin-inline: auto;
+  /* ═══════════ SERVIÇOS: a equipe ═══════════
+     Título e lista das quatro frentes de um lado; do outro a equipe junta sobre uma luz vermelha. Ao passar o mouse (ou tocar)
+     em uma pessoa ou em uma linha da lista, ela se separa do grupo, o resto escurece e afasta, e aparece o nome com as
+     ferramentas dela. O JS (src/js/team.js) só troca data-active e as classes is-active; todo o visual é CSS.
+     POSIÇÃO E TAMANHO de cada pessoa: variáveis --l (x, % do palco), --w (largura), --s (escala) e --z no bloco "member--*". */
+  .team__grid {
+    display: grid;
+    gap: clamp(1.6rem, 3vw, 2.4rem);
+    grid-template-areas: 't' 's' 'l';
   }
-  .svc-grid {
-    display: flex;
-    gap: 14px;
-    margin: clamp(2.6rem, 5vw, 4rem) calc(var(--gutter) * -1) 0;
-    padding: 6px var(--gutter) 14px;
-    overflow-x: auto;
-    scroll-snap-type: x mandatory;
-    scroll-padding-inline: var(--gutter);
-    scrollbar-width: none;
-    overscroll-behavior-x: contain;
+  .team__title {
+    grid-area: t;
+    max-width: 15em;
   }
-  .svc-grid::-webkit-scrollbar {
-    display: none;
+  .team__list {
+    grid-area: l;
+    display: grid;
+    align-self: start;
+    border-bottom: 1px solid var(--line);
   }
-  .svc-grid > li {
-    flex: 0 0 min(78vw, 360px);
-    scroll-snap-align: start;
+  .team__stage {
+    grid-area: s;
   }
-  .svc {
-    --ic: clamp(34px, 12.4cqw, 46px); /* lado dos ícones das ferramentas, proporcional ao card */
-    position: relative;
-    isolation: isolate;
-    container-type: inline-size;
-    display: flex;
-    flex-direction: column;
-    gap: 0.6rem;
-    height: 100%;
-    aspect-ratio: 9 / 16;
-    padding: 22px 18px 18px;
-    border-radius: var(--r-card);
-    overflow: hidden;
-    background: var(--card);
-    border: 1px solid var(--line);
-    transition: transform 0.5s var(--ease-out), border-color 0.3s var(--ease);
-  }
-  .svc__top {
-    position: relative;
-    z-index: 3;
-    display: flex;
-    align-items: flex-start;
-    justify-content: space-between;
+  .row {
+    display: grid;
+    grid-template-columns: 1fr auto;
     gap: 1rem;
-    padding-inline: 6px 0;
+    align-items: center;
+    padding: 1.15rem 0;
+    border-top: 1px solid var(--line);
+    transition: border-color 0.3s var(--ease), opacity 0.4s var(--ease);
   }
-  .svc__title {
-    padding-top: 0.45rem;
-    font: 600 clamp(1.15rem, 1rem + 0.5vw, 1.4rem) / 1.2 var(--f);
-    letter-spacing: -0.02em;
-    text-wrap: balance;
+  .row__title {
+    display: block;
+    font: 600 clamp(1.2rem, 1rem + 0.8vw, 1.55rem) / 1.15 var(--f);
+    letter-spacing: -0.025em;
   }
-  .svc__arrow {
+  .row__lead {
+    display: block;
+    margin-top: 0.3rem;
+    font-size: 0.92rem;
+    line-height: 1.4;
+    color: var(--muted);
+  }
+  .row__who {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+  }
+  .row__name {
+    padding: 0.45rem 0.85rem;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    font: 500 0.82rem / 1 var(--f);
+    color: #fff;
+    transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
+  }
+  .row__arrow {
     display: grid;
     place-items: center;
-    flex: none;
     width: 42px;
     height: 42px;
     border-radius: 50%;
     border: 1.5px solid rgba(255, 255, 255, 0.28);
     transition: transform 0.55s var(--ease-out), background 0.3s var(--ease), border-color 0.3s var(--ease);
   }
-  /* Palco: a luz vermelha fica atrás do membro; o painel de texto cobre a base da foto */
-  .svc__stage {
-    --gx: 62%;
-    --gy: 56%;
-    position: relative;
-    flex: 1;
-    min-height: 0;
-    margin: 0 -18px -26px;
+  .row__arrow .icon {
+    width: 1.1rem;
+    height: 1.1rem;
   }
-  .svc__stage::before {
-    content: '';
-    position: absolute;
-    left: var(--gx);
-    top: var(--gy);
-    width: 150%;
-    aspect-ratio: 1;
-    border-radius: 50%;
-    transform: translate(-50%, -50%);
-    background: radial-gradient(closest-side, rgba(255, 36, 48, 0.95) 0, rgba(228, 17, 29, 0.62) 34%, rgba(228, 17, 29, 0.2) 68%, rgba(228, 17, 29, 0));
-    transition: opacity 0.5s var(--ease), transform 0.7s var(--ease-out);
+  .row.is-active {
+    border-top-color: var(--red);
   }
-  /* ═══════════ POSIÇÃO DOS MEMBROS E DOS ÍCONES: é AQUI que se ajusta o x e o y ═══════════
-     Membro (Planejamento, Tráfego, Landing Pages):
-       --right   x: distância da borda DIREITA do card (maior = mais para a esquerda; negativo = sai um pouco do card)
-       --bottom  y: 0 = base encostada no painel de texto; maior = sobe; negativo = desce
-       --h       tamanho: 100% = altura inteira do palco; calc(100% - 34px) = 34px mais baixo
-     Design & Criativos tem dois membros: --back-* é o Paulinho (atrás, à direita) e --front-* é o Flaesio (na frente, à esquerda).
-       --back-right / --front-left: x (distância da borda direita / esquerda do card)
-       --back-bottom / --front-bottom: y
-       --back-h / --front-h: tamanho
-     Ícones das ferramentas (todos os cards): --tools-x (distância da borda esquerda) e --tools-y (distância do topo do palco).
-     Luz vermelha atrás do membro: --gx / --gy no .svc__stage (centro da luz, em % do palco). */
-  .svc {
-    --tools-x: 9cqw;
-    --tools-y: 4px;
+  .row.is-active .row__name {
+    background: var(--red);
+    border-color: var(--red);
   }
-  .svc--plan,
-  .svc--traf,
-  .svc--land {
-    --right: -2%;
-    --bottom: 0px;
-    --h: calc(100% - 4px);
-  }
-  .svc--design {  
-    --back-right: 1%;
-    --back-bottom: 0px;
-    --back-h: calc(100% - 7px);
-    --front-left: 1%;
-    --front-bottom: 0px;
-    --front-h: calc(100% - 42px);
-  }
-  .svc--design .svc__stage {
-    --gx: 50%;
-    --gy: 52%;
-  }
-  .svc__person {
-    position: absolute;
-    right: var(--right);
-    bottom: var(--bottom);
-    height: var(--h);
-    width: auto;
-    max-width: none;
-    object-fit: contain;
-    object-position: bottom;
-    transform-origin: 50% 100%;
-    transition: transform 0.7s var(--ease-out), filter 0.5s var(--ease);
-  }
-  .svc--design .svc__person--back {
-    right: var(--back-right);
-    bottom: var(--back-bottom);
-    height: var(--back-h);
-  }
-  /* Sem limite de largura: --front-h aumenta e diminui o Flaesio livremente (igual ao --back-h do Paulinho) */
-  .svc--design .svc__person--front {
-    right: auto;
-    left: var(--front-left);
-    bottom: var(--front-bottom);
-    height: var(--front-h);
-    object-position: left bottom;
-  }
-  .svc__tools {
-    position: absolute;
-    z-index: 2;
-    left: var(--tools-x);
-    top: var(--tools-y);
-    display: grid;
-    grid-template-columns: repeat(2, var(--ic));
-    gap: calc(var(--ic) * 0.2);
-  }
-  .svc__tools img {
-    width: var(--ic);
-    height: var(--ic);
-  }
-  /* ═══════════ CELULAR (tela até 639px): a MESMA proporção do desktop ═══════════
-     No desktop (card de ~375px) o palco do membro tem altura = 1,207 x a largura do card. No celular o painel de texto ocupa
-     mais espaço relativo (o texto quebra em mais linhas) e o palco ficava ~15% mais baixo, encolhendo os membros. Aqui o card
-     deixa de ser 9:16 e o palco passa a ter sempre a proporção do desktop; assim o x, o y e o tamanho dos membros e dos
-     ícones ficam iguais em proporção em qualquer celular.
-     Os ajustes em px do bloco "POSIÇÃO DOS MEMBROS" (ali em cima) são repetidos abaixo em cqw (1px do desktop = 0,297cqw),
-     para escalar com a largura do card. Se mudar um --h, --back-h ou --front-h em px lá em cima, mude o equivalente aqui:
-     cqw = px / 337 x 100 (337 = largura interna do card de referência do desktop). */
-  @media (max-width: 639px) {
-    .svc {
-      aspect-ratio: auto;
-    }
-    .svc__top {
-      min-height: 44px; /* mesma altura do topo nos 4 cards (o painel de texto fica alinhado) */
-    }
-    .svc__stage {
-      flex: none;
-      aspect-ratio: 1 / 1.207;
-    }
-    .svc--plan,
-    .svc--traf,
-    .svc--land {
-      --h: calc(100% - 1.19cqw); /* 4px */
-    }
-    .svc--design {
-      --back-h: calc(100% - 2.08cqw); /* 7px */
-      --front-h: calc(100% - 12.46cqw); /* 42px */
-    }
-  }
-  .svc__body {
-    position: relative;
-    z-index: 2;
-    display: grid;
-    align-content: start;
-    gap: 0.4rem;
-    min-height: 8.7rem; /* mesma altura nos 4 cards: o membro fica do mesmo tamanho em todos */
-    padding: 14px 16px 15px;
-    border-radius: 18px;
-    background: #18181c;
-    border: 1px solid rgba(255, 255, 255, 0.09);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  }
-  /* Linha vermelha que corre pela borda do painel (a mesma do cartão do formulário). Só anda com o mouse em cima ou foco. */
-  .svc__body::before {
-    content: '';
-    position: absolute;
-    inset: -1px;
-    z-index: -1;
-    padding: 1.5px;
-    border-radius: inherit;
-    pointer-events: none;
-    background: conic-gradient(from var(--ring), rgba(228, 17, 29, 0) 0%, rgba(228, 17, 29, 0) 52%, #e4111d 84%, #ff4651 94%, rgba(228, 17, 29, 0) 100%);
-    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    -webkit-mask-composite: xor;
-    mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-    mask-composite: exclude;
-    opacity: 0;
-    transition: opacity 0.45s var(--ease);
-    animation: ring 3.4s linear infinite paused;
-  }
-  .svc:focus-visible .svc__body::before,
-  .svc.is-live .svc__body::before {
-    opacity: 1;
-    animation-play-state: running;
-  }
-  /* Toque: a seta vira e fica vermelha uma vez quando o card é visto (a classe é posta por svcLive() em motion.js) */
-  .svc.is-hit .svc__arrow {
+  .row.is-active .row__arrow {
     transform: rotate(45deg);
     background: var(--red);
     border-color: var(--red);
   }
-  .svc:focus-visible .svc__person {
-    transform: scale(1.05);
+  .team[data-active] .row:not(.is-active) {
+    opacity: 0.5;
   }
-  @container (max-width: 289px) {
-    .svc__body {
-      min-height: 9.7rem;
-    }
+
+  .team__stage {
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    aspect-ratio: 1 / 1.02;
+    -webkit-user-select: none;
+    user-select: none;
   }
-  .svc__lead {
-    font-size: clamp(0.8rem, 4.7cqw, 0.9rem);
-    font-weight: 600;
-    line-height: 1.35;
-    color: #fff;
+  .team__stage::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    left: 50%;
+    top: 58%;
+    width: 135%;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient(closest-side, rgba(255, 36, 48, 0.95) 0, rgba(228, 17, 29, 0.62) 34%, rgba(228, 17, 29, 0.2) 68%, rgba(228, 17, 29, 0));
   }
-  .svc__text {
+  .team__crowd {
+    position: absolute;
+    inset: 0;
+  }
+  .member {
+    --l: 0%;
+    --w: 50%;
+    --s: 1;
+    --z: 1;
+    --dx: 0%;
+    --dy: 0%;
+    --ss: var(--s);
+    position: absolute;
+    bottom: 0;
+    left: var(--l);
+    width: var(--w);
+    z-index: var(--z);
+    pointer-events: none;
+    transform-origin: 50% 100%;
+    transform: translate(var(--dx), var(--dy)) scale(var(--ss));
+    transition: transform 0.7s var(--ease-out), filter 0.5s var(--ease);
+  }
+  /* Áreas clicáveis: fixas (não crescem com o destaque), com o formato da silhueta, para uma pessoa não roubar o mouse da vizinha */
+  .team__hits {
+    position: absolute;
+    inset: 0;
+    z-index: 5;
+  }
+  .hit {
+    --l: 0%;
+    --w: 50%;
+    --s: 1;
+    --z: 1;
+    position: absolute;
+    bottom: 0;
+    left: var(--l);
+    width: var(--w);
+    z-index: var(--z);
+    aspect-ratio: 800 / 1400;
+    cursor: pointer;
+    transform-origin: 50% 100%;
+    transform: scale(var(--s));
+    clip-path: polygon(33% 0, 67% 0, 70% 24%, 100% 33%, 100% 100%, 0 100%, 0 33%, 30% 24%);
+  }
+  .hit.member--kaua {
+    aspect-ratio: 800 / 1344;
+  }
+  .hit.member--paulo {
+    aspect-ratio: 800 / 1395;
+  }
+  .hit.member--rian {
+    aspect-ratio: 800 / 1251;
+  }
+  .hit.member--arthur {
+    aspect-ratio: 800 / 1511;
+  }
+  .member img {
+    display: block;
+    width: 100%;
+    height: auto;
+    pointer-events: none;
+    -webkit-mask-image: linear-gradient(to bottom, #000 0, #000 88%, transparent 100%);
+    mask-image: linear-gradient(to bottom, #000 0, #000 88%, transparent 100%);
+  }
+  /* Quatro pessoas lado a lado, com as duas do meio na frente (da esquerda para a direita, como na foto do cliente) */
+  .member--kaua {
+    --l: 0%;
+    --s: 0.94;
+    --z: 1;
+  }
+  .member--paulo {
+    --l: 16.5%;
+    --z: 3;
+  }
+  .member--rian {
+    --l: 33.5%;
+    --z: 3;
+  }
+  .member--arthur {
+    --l: 50%;
+    --s: 0.94;
+    --z: 1;
+  }
+  .team[data-active] .member:not(.is-active) {
+    --ss: calc(var(--s) * 0.96);
+    filter: brightness(0.4) saturate(0.7);
+  }
+  .team[data-active] .member.is-active {
+    --dy: -2.5%;
+    --ss: calc(var(--s) * 1.1);
+    --z: 9;
+    z-index: 9;
+    filter: brightness(1.05);
+  }
+  /* legenda da pessoa ativa: nome, serviço e as ferramentas dela */
+  .team__cap {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 10;
+  }
+  .cap {
+    --cx: 50%;
+    position: absolute;
+    left: var(--cx);
+    bottom: 3%;
+    display: grid;
+    justify-items: center;
+    gap: 0.28rem;
+    padding: 0.7rem 1rem 0.75rem;
+    border-radius: 16px;
+    background: rgba(12, 12, 15, 0.86);
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translate(-50%, 10px);
+    transition: opacity 0.35s var(--ease), transform 0.5s var(--ease-out);
+  }
+  .cap.is-active {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+  .cap__name {
+    font: 700 1.05rem / 1.1 var(--f);
+    letter-spacing: -0.01em;
+  }
+  .cap__role {
     font-size: 0.8rem;
-    line-height: 1.5;
+    line-height: 1.3;
     color: var(--muted);
   }
-  @media (hover: hover) and (pointer: fine) {
-    .svc:hover {
-      transform: translateY(-6px);
-      border-color: var(--red);
+  .cap__tools {
+    display: flex;
+    gap: 6px;
+    margin-top: 0.25rem;
+  }
+  .cap__tools img {
+    width: 28px;
+    height: 28px;
+  }
+  .cap__hint {
+    position: absolute;
+    left: 50%;
+    bottom: 2%;
+    transform: translateX(-50%);
+    padding: 0.5rem 0.95rem;
+    border-radius: 999px;
+    background: rgba(12, 12, 15, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    font: 500 0.78rem / 1 var(--f);
+    color: rgba(255, 255, 255, 0.78);
+    white-space: nowrap;
+    transition: opacity 0.35s var(--ease);
+  }
+  .hint--touch {
+    display: none;
+  }
+  @media (hover: none) {
+    .hint--mouse {
+      display: none;
     }
-    .svc:hover .svc__arrow {
-      transform: rotate(45deg);
-      background: var(--red);
-      border-color: var(--red);
+    .hint--touch {
+      display: inline;
     }
-    /* Destaque dos membros: crescem um pouco e a luz vermelha atrás deles fica mais forte */
-    .svc:hover .svc__person {
-      transform: scale(1.05);
-      filter: brightness(1.07) saturate(1.1);
+  }
+  .team[data-active] .cap__hint {
+    opacity: 0;
+  }
+  @media (min-width: 900px) {
+    .team__grid {
+      grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr);
+      grid-template-areas: 't s' 'l s';
+      grid-template-rows: auto 1fr;
+      column-gap: clamp(1.5rem, 3.5vw, 3.5rem);
+      align-items: start;
     }
-    .svc:hover .svc__stage::before {
-      transform: translate(-50%, -50%) scale(1.16);
+    .team__stage {
+      align-self: center;
+      grid-row: 1 / span 2;
+      aspect-ratio: 1.2 / 1;
     }
-    .svc:hover .svc__body::before {
-      opacity: 1;
-      animation-play-state: running;
+    .member {
+      --w: 38%;
+    }
+    .member--paulo {
+      --l: 21%;
+    }
+    .member--rian {
+      --l: 41%;
+    }
+    .member--arthur {
+      --l: 62%;
+    }
+    .cap--kaua {
+      --cx: 24%;
+    }
+    .cap--paulo {
+      --cx: 41%;
+    }
+    .cap--rian {
+      --cx: 59%;
+    }
+    .cap--arthur {
+      --cx: 76%;
     }
   }
   @media (prefers-reduced-motion: reduce) {
-    .svc__body::before {
-      animation: none;
-    }
-    .svc:hover .svc__person,
-    .svc:focus-visible .svc__person {
-      transform: none;
-      filter: none;
-    }
-    .svc:hover .svc__stage::before {
-      transform: translate(-50%, -50%);
-    }
-  }
-  @media (min-width: 640px) {
-    .svc-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 20px;
-      margin-inline: auto;
-      max-width: 780px;
-      padding: 6px 0 0;
-      overflow: visible;
-    }
-    .svc-grid > li {
-      flex: none;
-    }
-  }
-  @media (min-width: 1280px) {
-    .svc-grid {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      max-width: none;
+    .member,
+    .cap,
+    .row,
+    .row__arrow {
+      transition: none;
     }
   }
 
@@ -868,9 +881,13 @@
   /* ═══════════ SERVIÇOS-CASE: CASE KZN ═══════════
      À esquerda a galeria de peças (duas pequenas empilhadas, uma grande e o vídeo); à direita o texto.
      Ao passar o mouse a imagem cresce um pouco. */
+  /* Seção compacta: galeria, texto, números e frase final cabem juntos na mesma tela (pedido do cliente: nada muito separado) */
+  .case {
+    padding-block: clamp(52px, 6.2vw, 88px);
+  }
   .case__grid {
     display: grid;
-    gap: clamp(2.4rem, 5vw, 4rem);
+    gap: clamp(1.6rem, 3vw, 2.4rem);
     align-items: center;
   }
   .case__text {
@@ -903,19 +920,25 @@
   .case__label span::before {
     content: '– ';
   }
+  .case__text {
+    gap: 0.9rem;
+  }
   .case__text .h2 {
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.2rem;
     max-width: 14em;
+    font-size: clamp(1.9rem, 1.1rem + 2.3vw, 3.1rem);
   }
   .case__art {
     order: 2;
   }
+  /* As colunas seguem a proporção real de cada arte (0,40 : 0,71 : 0,81), então todas têm a mesma altura e nenhuma
+     fica cortada (o texto das peças vai até a borda). A coluna da esquerda empilha duas peças de 606x758 e 578x723. */
   .case__gallery {
     display: grid;
-    grid-template-columns: 0.68fr 1fr 1fr;
+    grid-template-columns: 0.4fr 0.713fr 0.812fr;
     gap: clamp(8px, 1.3vw, 14px);
     align-items: stretch;
-    width: min(100%, 680px);
+    width: min(100%, 820px);
     margin-inline: auto;
   }
   .case__stackcol {
@@ -934,7 +957,10 @@
     isolation: isolate;
   }
   .poster--l {
-    aspect-ratio: 9 / 16;
+    aspect-ratio: 566 / 794;
+  }
+  .poster--video {
+    aspect-ratio: 645 / 794;
   }
   .poster__img {
     width: 100%;
@@ -968,19 +994,9 @@
     right: 0.5rem;
   }
   .poster--video {
-    cursor: default;
+    cursor: pointer;
   }
-  .poster--video .poster__ph {
-    place-content: end center;
-    padding-bottom: 0.9rem;
-  }
-  .poster--video video {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    background: #000;
-  }
+
   .video__play {
     position: absolute;
     inset: 0;
@@ -1001,11 +1017,142 @@
     height: 42%;
     margin-left: 6%;
   }
-  .poster--video[role='button'] {
-    cursor: pointer;
+  .poster__video {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* o vídeo é 9:16: sem cortar as legendas, com faixas pretas nas laterais */
+    background: #000;
+    opacity: 0;
+    transition: opacity 0.4s var(--ease);
+  }
+  .poster--video.is-live .poster__video {
+    opacity: 1;
+  }
+  .poster--video .video__play {
+    z-index: 2;
+    transition: opacity 0.3s var(--ease), transform 0.5s var(--ease-out);
   }
   .poster--video.is-playing .video__play {
-    display: none;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .poster--video:hover .poster__img {
+    transform: none;
+  }
+  .vctl {
+    position: absolute;
+    z-index: 3;
+    right: 0.5rem;
+    bottom: 0.5rem;
+    display: flex;
+    gap: 6px;
+  }
+  .vctl__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.45rem;
+    height: 38px;
+    min-width: 38px;
+    padding: 0 0.6rem;
+    border-radius: 999px;
+    background: rgba(12, 12, 15, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: #fff;
+    font: 600 0.72rem / 1 var(--f);
+    white-space: nowrap;
+    transition: background 0.3s var(--ease), border-color 0.3s var(--ease);
+  }
+  .vctl__btn svg {
+    flex: none;
+    width: 18px;
+    height: 18px;
+  }
+  .vctl__btn:hover,
+  .vctl__btn:focus-visible {
+    background: var(--red);
+    border-color: var(--red);
+  }
+  .vctl__sound.is-attn {
+    background: var(--red);
+    border-color: var(--red);
+    animation: vctl-attn 1.8s ease-in-out infinite;
+  }
+  @keyframes vctl-attn {
+    50% {
+      box-shadow: 0 0 0 6px rgba(228, 17, 29, 0.28);
+    }
+  }
+  @media (max-width: 639px) {
+    .vctl__sound span {
+      display: none;
+    }
+    .vctl__btn {
+      height: 40px;
+      min-width: 40px;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .vctl__sound.is-attn {
+      animation: none;
+    }
+  }
+  .poster--video:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 3px;
+  }
+  /* Player do vídeo da campanha: <dialog> nativo (Esc fecha, foco preso, leitor de tela anuncia). O vídeo é 9:16. */
+  .vdlg {
+    width: min(92vw, calc(88svh * 9 / 16));
+    max-width: none;
+    max-height: none;
+    margin: auto;
+    padding: 0;
+    overflow: visible;
+    border: 0;
+    background: transparent;
+    color: #fff;
+  }
+  .vdlg::backdrop {
+    background: rgba(5, 5, 7, 0.9);
+  }
+  .vdlg video {
+    display: block;
+    width: 100%;
+    aspect-ratio: 9 / 16;
+    max-height: 88svh;
+    border-radius: 18px;
+    background: #000;
+    box-shadow: 0 40px 80px -30px #000, 0 0 0 1px rgba(255, 255, 255, 0.14);
+  }
+  .vdlg__close {
+    position: absolute;
+    top: -54px;
+    right: 0;
+    display: grid;
+    place-items: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    transition: background 0.3s var(--ease);
+  }
+  .vdlg__close:hover,
+  .vdlg__close:focus-visible {
+    background: var(--red);
+  }
+  .vdlg__close svg {
+    width: 18px;
+    height: 18px;
+  }
+  @media (max-width: 639px) {
+    .vdlg__close {
+      top: -52px;
+    }
   }
   @media (hover: hover) and (pointer: fine) {
     .poster--video:hover .video__play {
@@ -1050,10 +1197,17 @@
     top: 0.9rem;
     right: 0.9rem;
   }
+  .case .metrics {
+    margin-top: clamp(1.4rem, 2.6vw, 2.2rem);
+  }
+  .case .metric {
+    min-height: 112px;
+    padding: 1.1rem 1.3rem 1.2rem;
+  }
   .case__close {
-    max-width: 24em;
-    margin-top: clamp(2.6rem, 5vw, 4rem);
-    font: 500 clamp(1.2rem, 1rem + 1vw, 1.9rem) / 1.35 var(--f);
+    max-width: 44em;
+    margin-top: clamp(1.2rem, 2.2vw, 1.8rem);
+    font: 500 clamp(1.05rem, 0.95rem + 0.6vw, 1.45rem) / 1.35 var(--f);
     letter-spacing: -0.02em;
     color: var(--muted);
     text-wrap: balance;
@@ -1069,8 +1223,8 @@
   }
   @media (min-width: 1024px) {
     .case__grid {
-      grid-template-columns: 6fr 5fr;
-      column-gap: clamp(3rem, 7vw, 7rem);
+      grid-template-columns: 1.2fr 0.8fr;
+      column-gap: clamp(2rem, 4vw, 4rem);
     }
     .case__art {
       order: 0;

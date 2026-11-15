@@ -31,7 +31,8 @@ export function applyConfig(config) {
   document.querySelectorAll('[data-portfolio]').forEach((a) => setLink(a, config.portfolio));
   document.querySelectorAll('[data-year]').forEach((el) => (el.textContent = new Date().getFullYear()));
 
-  injectTracking(config.tracking || {});
+  // Só rastreia no site publicado: no servidor de desenvolvimento (npm run dev) não manda visita falsa para o Pixel/GTM do cliente
+  if (!import.meta.env?.DEV) injectTracking(config.tracking || {});
 
   if (import.meta.env?.DEV && /^5598?0+$/.test(String(config.whatsapp.number))) {
     console.info('[KZN] WhatsApp ainda é o número de exemplo — troque em src/config.js');
@@ -39,12 +40,20 @@ export function applyConfig(config) {
 }
 
 function injectTracking({ gtmId, ga4Id, metaPixelId }) {
-  const add = (src) => {
-    const s = document.createElement('script');
-    s.async = true;
-    s.src = src;
-    document.head.appendChild(s);
+  // Os scripts de terceiros (GTM, Meta) só são baixados depois que a página terminou de carregar e o navegador está ocioso.
+  // Os eventos já ficam na fila (dataLayer e fbq), então um envio de formulário rápido não perde o lead.
+  const later = (fn) => {
+    const run = () => ('requestIdleCallback' in window ? requestIdleCallback(fn, { timeout: 4000 }) : setTimeout(fn, 1500));
+    if (document.readyState === 'complete') run();
+    else window.addEventListener('load', run, { once: true });
   };
+  const add = (src) =>
+    later(() => {
+      const s = document.createElement('script');
+      s.async = true;
+      s.src = src;
+      document.head.appendChild(s);
+    });
   window.dataLayer = window.dataLayer || [];
 
   if (gtmId) {
